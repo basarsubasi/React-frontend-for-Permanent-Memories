@@ -1,0 +1,67 @@
+/* Styles/Search.css */
+.search-items-container {
+  padding: 20px;
+}
+
+.search-items-title {
+  margin-bottom: 20px;
+}
+
+.search-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.search-item-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  display: flex;
+  align-items: center; /* Adjust as needed */
+}
+
+.item-image {
+  width: 150px; /* Adjust as needed */
+  height: 150px; /* Adjust as needed */
+  margin-right: 20px;
+}
+
+.item-content {
+  flex-grow: 1;
+}
+
+.item-title {
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.item-description {
+  list-style-type: none;
+  padding: 0;
+}
+
+.item-description li {
+  margin-bottom: 5px;
+}
+
+.item-availability {
+  font-weight: bold;
+  color: #4CAF50; /* Adjust color as needed */
+}
+.out-of-stock {
+  color: #E53935; /* Red for out-of-stock items */
+}
+
+.item-price {
+  font-size: 1.5rem;
+  color: #E65100; /* Adjust color as needed */
+  margin: 10px 0;
+}
+
+.item-actions {
+  font-size: 1.25rem; /* Adjust size as needed */
+  display: flex;
+  gap: 10px;
+}
+
+/* Further style the icons/buttons as needed */
