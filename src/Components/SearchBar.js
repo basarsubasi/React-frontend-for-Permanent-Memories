@@ -19,7 +19,12 @@ const SearchBar = () => {
         <Link to={`/search?term=${searchTerm}`} className="search-button-link">
           <button type="submit" className="search-button">Search</button>
         </Link>
+        </div>
+
+      <div className="brand-name">
+        Permanent Memories
       </div>
+      
       <div className="auth-buttons">
         <Link to="/signup" className="signup-button">Signup</Link>
         <Link to="/login" className="login-button">Login</Link>

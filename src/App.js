@@ -12,7 +12,7 @@ function App() {
       <Layout>
       <Routes>
   <Route path="/search" element={<SearchItems />} />
-  <Route path="/homepage" element={<HomePage />} />
+  <Route path="/" element={<HomePage />} />
   <Route path="/Login" element={<Login />} />
   <Route path="/Signup" element={<SignUp />} />
   {/* Add more routes for other pages */}

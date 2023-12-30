@@ -5,8 +5,8 @@ import '../Styles/NavBar.css';
 export default function NavigationBar() {
     const links = [
         { name: 'Home', url: '/' },
-        { name: 'Daily Deals', url: '/deals' },
-        { name: 'Customer Service', url: '/service' },
+        { name: 'Cameras', url: '/cameras' },
+        { name: 'Films', url: '/films' },
         // Add other links as needed
     ];
 
