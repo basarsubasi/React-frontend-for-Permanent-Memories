@@ -38,7 +38,17 @@ const SearchItems = () => {
       <ul className="search-items-list">
         {searchResults.map((item) => (
           <li className="search-items-item" key={item.GUID}>
-            {item.name}
+            <div className="item-title">{item.Title}</div>
+            <div className="item-description">{item.Description}</div>
+            <div className="item-quantity">Quantity: {item.Quantity}</div>
+            <div className="item-price">Price: ${item.Price.toFixed(2)}</div>
+            <div className="item-brand">Brand: {item.Brand}</div>
+            {item.IsAvailable ? (
+              <div className="item-availability">Available</div>
+            ) : (
+              <div className="item-availability">Not Available</div>
+            )}
+            <img src={item.TitleImageUrl} alt={item.Title} className="item-image" />
           </li>
         ))}
       </ul>
