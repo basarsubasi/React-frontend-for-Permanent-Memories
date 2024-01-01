@@ -4,6 +4,8 @@ import SearchItems from './Pages/SearchItems';
 import HomePage from './Pages/HomePage';
 import Login from './Pages/Login';
 import SignUp from './Pages/SignUp';
+import Cameras from './Pages/Cameras';
+import Films from './Pages/Films';
 import ProductPage from './Pages/ProductPage';
 import Layout from './Components/Layout';
 
@@ -17,6 +19,8 @@ function App() {
   <Route path="/Login" element={<Login />} />
   <Route path="/Signup" element={<SignUp />} />
   <Route path="/product/:guid" element={<ProductPage />} />
+  <Route path="/films" element={<Films />} />
+  <Route path="/cameras" element={<Cameras />} />
   {/* Add more routes for other pages */}
 </Routes>
      </Layout>

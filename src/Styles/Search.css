@@ -1,10 +1,40 @@
 /* Styles/Search.css */
+
 .search-items-container {
   padding: 20px;
 }
 
 .search-items-title {
   margin-bottom: 20px;
+}
+
+.search-filter-form {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.search-filter-form input,
+.search-filter-form select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.search-filter-form button {
+  padding: 8px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.search-filter-form button:hover {
+  background-color: #388E3C;
 }
 
 .search-results-grid {
@@ -17,12 +47,12 @@
   border: 1px solid #ddd;
   padding: 10px;
   display: flex;
-  align-items: center; /* Adjust as needed */
+  align-items: center;
 }
 
 .item-image {
-  width: 150px; /* Adjust as needed */
-  height: 150px; /* Adjust as needed */
+  width: 150px;
+  height: 150px;
   margin-right: 20px;
 }
 
@@ -46,22 +76,33 @@
 
 .item-availability {
   font-weight: bold;
-  color: #4CAF50; /* Adjust color as needed */
+  color: #4CAF50;
 }
+
 .out-of-stock {
-  color: #E53935; /* Red for out-of-stock items */
+  color: #E53935;
 }
 
 .item-price {
   font-size: 1.5rem;
-  color: #E65100; /* Adjust color as needed */
+  color: #E65100;
   margin: 10px 0;
 }
 
 .item-actions {
-  font-size: 1.25rem; /* Adjust size as needed */
+  font-size: 1.25rem;
   display: flex;
   gap: 10px;
 }
 
-/* Further style the icons/buttons as needed */
+.no-results-message {
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.item-title:hover {
+  cursor: pointer;
+}
+
