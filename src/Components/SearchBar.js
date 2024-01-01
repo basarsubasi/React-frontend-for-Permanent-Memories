@@ -1,10 +1,35 @@
 // Components/SearchBar.js
+// Components/SearchBar.js
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import '../Styles/SearchBar.css'; // Make sure this path is correct
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import '../Styles/SearchBar.css';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const isLoggedIn =!!user;
+  const userRoles = user?.Roles; // Default to an empty array if Roles is not present
+
+
+  const handleLogout = async () => {
+    try {
+      // Correct URL for the logout API endpoint
+      const logoutUrl = 'http://localhost:5232/api/auth/logout';
+  
+      // API call to logout endpoint
+      await axios.post(logoutUrl);
+  
+      // Clear user session and redirect to login
+      sessionStorage.removeItem('user');
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+      // Optionally, handle the error (e.g., show an error message)
+    }
+  };
 
   return (
     <div className="search-bar-container">
@@ -27,8 +52,29 @@ const SearchBar = () => {
       
 
       <div className="auth-buttons">
-        <Link to="/signup" className="signup-button">Signup</Link>
-        <Link to="/login" className="login-button">Login</Link>
+        {!isLoggedIn && (
+          <>
+            <Link to="/signup" className="signup-button">
+              Signup
+            </Link>
+            <Link to="/login" className="login-button">
+              Login
+            </Link>
+          </>
+        )}
+        {isLoggedIn && (
+          <>
+            {userRoles.includes('Customer') && (
+              <Link to="/cart" className="cart-button">
+                Cart
+              </Link>
+            )}
+            {/* Add other role-based buttons here */}
+            <button onClick={handleLogout} className="logout-button">
+              Logout
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

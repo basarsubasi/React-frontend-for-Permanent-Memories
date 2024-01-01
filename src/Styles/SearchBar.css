@@ -44,7 +44,7 @@
   }
   
   .signup-button,
-  .login-button {
+  .login-button, .logout-button, .cart-button {
     text-decoration: none;
     color: #131921;
     padding: 8px 16px;
@@ -54,11 +54,9 @@
     cursor: pointer;
   }
   
-  .signup-button {
+  .signup-button,.login-button, .logout-button, .cart-button {
     background-color: #f0c14b; /* Button color */
   }
   
-  .login-button {
-    background-color: #f0c14b; /* Button color */
-  }
+
   
