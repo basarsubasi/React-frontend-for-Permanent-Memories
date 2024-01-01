@@ -25,6 +25,7 @@ const SearchBar = () => {
         Permanent Memories
       </div>
       
+
       <div className="auth-buttons">
         <Link to="/signup" className="signup-button">Signup</Link>
         <Link to="/login" className="login-button">Login</Link>
