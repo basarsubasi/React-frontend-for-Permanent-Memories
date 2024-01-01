@@ -16,18 +16,11 @@ const SearchBar = () => {
 
   const handleLogout = async () => {
     try {
-      // Correct URL for the logout API endpoint
-      const logoutUrl = 'http://localhost:5232/api/auth/logout';
-  
-      // API call to logout endpoint
-      await axios.post(logoutUrl);
-  
-      // Clear user session and redirect to login
+      // Simply clear the session and redirect, without making an API call
       sessionStorage.removeItem('user');
       navigate('/login');
     } catch (error) {
       console.error('Logout failed:', error);
-      // Optionally, handle the error (e.g., show an error message)
     }
   };
 
@@ -69,7 +62,18 @@ const SearchBar = () => {
                 Cart
               </Link>
             )}
-            {/* Add other role-based buttons here */}
+            {userRoles.includes('Employee') && (
+              <Link to="/employeedashboard" className="cart-button">
+                Employee Dashboard
+              </Link>
+            )}
+
+            {userRoles.includes('Admin') && (
+              <Link to="/admindashboard" className="cart-button">
+                Admin Dashboard
+              </Link>
+            )}
+
             <button onClick={handleLogout} className="logout-button">
               Logout
             </button>
