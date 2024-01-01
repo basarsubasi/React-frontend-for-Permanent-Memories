@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import '../Styles/ProductPage.css'; // Make sure this CSS file includes the new styles
+import '../Styles/ProductPage.css'; // Ensure this file is updated with new styles
 
 const ProductPage = () => {
   const [product, setProduct] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(''); // This will be used to hold the currently selected image
   const { guid } = useParams();
 
+  // Fetch product details
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`http://localhost:5232/api/Item/getItem/${guid}`);
         setProduct(response.data);
+        setSelectedImage(response.data.TitleImageUrl);
       } catch (error) {
         console.error('Error fetching product:', error);
       }
@@ -22,55 +25,94 @@ const ProductPage = () => {
     }
   }, [guid]);
 
+  useEffect(() => {
+    if (product) {
+      setSelectedImage(product.TitleImageUrl || product.AdditionalImageUrls?.[0]);
+    }
+  }, [product]);
+
   if (!product) {
-    return <div>Loading...</div>;
+    return <div className="loading">Loading...</div>; // Style this for better UX
   }
 
+  // Extracted function for rendering additional details
+  const renderAdditionalDetails = () => {
+    switch (product.ItemType) {
+      case 1: // Camera specs
+        return (
+          <div className="product-camera-specs">
+            <p>Focal Length: {product.CameraFocalLength} mm</p>
+            <p>Max Shutter Speed: 1/{product.CameraMaxShutterSpeed} sec</p>
+            <p>Megapixel: {product.CameraMegapixel} MP</p>
+            <p>Film Format: {product.CameraFilmFormat}</p>
+          </div>
+        );
+  
+      case 0: // Film specs
+        return (
+          <div className="product-film-specs">
+            <p>Color State: {product.FilmColorState === 0 ? 'Black and White' : 'Color Film'}</p>
+            <p>Format: {product.FilmFormat} mm</p>
+            <p>ISO: {product.FilmISO}</p>
+            <p>Exposure: {product.FilmExposure} shots</p>
+          </div>
+        );
+  
+      default:
+        return null;
+    }
+  };
 
-   // Determine which additional details to display based on the item type
-   const additionalDetails = product.ItemType === 1
-   ? (
-     <p className="product-camera-specs">
-       Focal Length: {product.CameraFocalLength} | 
-       Max Shutter Speed: 1/{product.CameraMaxShutterSpeed} | 
-       Megapixel: {product.CameraMegapixel} | 
-       Film Format: {product.CameraFilmFormat}
-     </p>
-   ) : product.ItemType === 0
-   ? (
-     <p className="product-film-specs">
-       Color State: {product.FilmColorState === 0 ? 'Black and White' : 'Color Film'} | 
-       Format: {product.FilmFormat} | 
-       ISO: {product.FilmISO} | 
-       Exposure: {product.FilmExposure}
-     </p>
-   ) : null;
 
-  // The title image might be null, so use optional chaining and provide a fallback image if necessary
-  const titleImageUrl = product.TitleImageUrl || 'path_to_fallback_image';
-  // Ensure additional images is always an array, even if it's null or undefined
-  const additionalImageUrls = product.AdditionalImageUrls || [];
+
+ 
+
+  
 
   return (
     <div className="product-page">
       <h1 className="product-title">{product.Title}</h1>
-
-      <div className="product-images">
-      <img src={titleImageUrl} alt={product.Title} className="product-main-image" />
-        {additionalImageUrls.map((additionalImageUrls, index) => (
-          <img key={index} src={additionalImageUrls} alt={`${product.Title} additional ${index + 1}`} className="product-additional-image" />
-        ))}
-      </div>
+      <p className="product-description" >Product Description:</p>
+      <p className="product-description">{product.Description}</p>
 
 
+
+      <div className="product-image-gallery">
+    <img src={selectedImage || 'default-placeholder-image.jpg'} alt={product.Title} className="product-main-image" />
+    <div className="product-thumbnail-container">
+      {product.TitleImageUrl && (
+        <img
+          src={product.TitleImageUrl}
+          alt={`${product.Title} main`}
+          onClick={() => setSelectedImage(product.TitleImageUrl)}
+          className={`product-thumbnail ${selectedImage === product.TitleImageUrl ? 'active' : ''}`}
+        />
+      )}
+      {product.AdditionalImageUrls && product.AdditionalImageUrls.map((imageUrl, index) => (
+        <img
+          key={index}
+          src={imageUrl}
+          alt={`${product.Title} additional ${index + 1}`}
+          onClick={() => setSelectedImage(imageUrl)}
+          className={`product-thumbnail ${selectedImage === imageUrl ? 'active' : ''}`}
+        />
+      ))}
+    </div>
+  </div>
+
+  
       <div className="product-details">
-        <p className="product-description">{product.Description}</p>
+      <p className={`product-availability ${product.IsAvailable ? 'in-stock' : 'out-of-stock'}`}>
+       {product.IsAvailable ? 'In Stock' : 'Out of Stock'} </p>
+
+      
         <p className="product-quantity">Quantity Available: {product.Quantity}</p>
-        <p className="product-price">Price: £{product.Price}</p>
+        <p className="product-price">Price: ₺{product.Price}</p>
         <p className="product-brand">Brand: {product.Brand}</p>
-        <p className="product-availability">{product.IsAvailable ? 'In Stock' : 'Out of Stock'}</p>
-        {additionalDetails}
+        {renderAdditionalDetails()}
       </div>
+
+      
 
       <button className="add-to-cart-btn">Add to Cart - £{product.Price}</button>
     </div>

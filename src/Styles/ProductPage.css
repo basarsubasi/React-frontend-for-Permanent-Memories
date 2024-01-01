@@ -1,50 +1,161 @@
-/* Add to existing ProductPage.css */
+/* ProductPage.css - Complete with stylized item details */
 
-.product-details {
-    margin-top: 1rem;
+.product-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+  }
+  
+  .loading {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .product-title {
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .product-description-section {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .product-description-title {
+    font-weight: bold;
   }
   
   .product-description {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+    font-size: 16px;
+    line-height: 1.5;
   }
   
-  .product-quantity,
-  .product-price,
-  .product-brand,
-  .product-availability,
-  .product-camera-specs {
-    font-size: 0.9rem;
-    margin-bottom: 0.25rem;
+  .product-image-gallery {
+    text-align: center;
+    margin-bottom: 20px;
   }
+  
+  .product-main-image {
+    width: 60%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .product-thumbnail-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    overflow-x: auto;
+  }
+  
+  .product-thumbnail {
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .product-thumbnail.active,
+  .product-thumbnail:hover {
+    opacity: 1;
+  }
+  
+  /* Common item details styling */
+  .product-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 70%;
+    margin-bottom: 20px;
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-details p {
+    margin: 5px 0;
+    color: #333;
+  }
+  
+  /* Specific item details styling */
+  .product-camera-specs,
   .product-film-specs {
-    font-size: 0.9rem;
-    margin-bottom: 0.25rem;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border-left: 4px solid #f0c14b;
+    margin: 10px 0;
+    border-radius: 4px;
   }
   
+  .product-camera-specs p,
+  .product-film-specs p {
+    margin: 5px 0;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Highlighting the price and availability */
+  .product-price {
+
+    font-size: 20px;
+    font-weight: bold;
+  }
   .product-availability {
     font-weight: bold;
-    color: #4CAF50; /* Green for in stock */
+  }
+  .in-stock {
+    color: #388e3c; /* Green color for In Stock */
+  }
+  .out-of-stock {
+    color: #f44336; /* Red color for Out of Stock */
   }
   
-  .product-availability.out-of-stock {
-    color: #E53935; /* Red for out of stock */
+  
+  .product-brand,
+  .product-quantity {
+    font-weight: bold;
   }
   
-  /* Styles for the Title Image */
-  .product-main-image {
-    max-width: 100%;
-    height: auto;
-    max-height: 400px; /* Adjust as needed */
+  .add-to-cart-btn {
+    background-color: #f0c14b;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
   }
   
-  /* Styles for the Additional Images */
-  .product-additional-image {
-    max-width: 100%; /* Ensures the image is not larger than its container */
-    height: auto; /* Maintains the aspect ratio of the image */
-    max-height: 200px; /* Adjust this value as needed */
-    margin-top: 10px;
-  }
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .product-main-image {
+      width: 90%;
+      max-width: none;
+    }
   
-  /* Continue to style other elements and add responsive design as needed */
+    .product-thumbnail {
+      width: 60px;
+    }
+  
+    .product-details {
+      align-items: center;
+      max-width: 100%;
+    }
+  }
   
