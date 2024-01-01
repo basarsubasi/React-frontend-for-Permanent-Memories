@@ -7,6 +7,7 @@ import SignUp from './Pages/SignUp';
 import Cameras from './Pages/Cameras';
 import Films from './Pages/Films';
 import ProductPage from './Pages/ProductPage';
+import CreateItem from './Pages/CreateItem';
 import Layout from './Components/Layout';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   <Route path="/product/:guid" element={<ProductPage />} />
   <Route path="/films" element={<Films />} />
   <Route path="/cameras" element={<Cameras />} />
+  <Route path="/createitem" element={<CreateItem />} />
   {/* Add more routes for other pages */}
 </Routes>
      </Layout>
