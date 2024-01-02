@@ -100,7 +100,7 @@ const CamerasPage = () => {
           <option value="descending">Descending</option>
         </select>
 
-        <button type="submit">Apply Filters</button>
+        <button type="camera-filter-form">Apply Filters</button>
       </form>
 
       {searchResults.length === 0 ? (

@@ -100,7 +100,7 @@ const FilmsPage = () => {
           <option value="descending">Descending</option>
         </select>
 
-        <button type="submit">Apply Filters</button>
+        <button type="film-filter-form">Apply Filters</button>
       </form>
 
       {searchResults.length === 0 ? (

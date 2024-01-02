@@ -12,6 +12,7 @@ import EditItem from './Pages/EditItem';
 import AdminDashboard from './Pages/AdminDashboard';
 import RegisterEmployee from './Pages/RegisterEmployee';
 import ItemsListPage from './Pages/ListAllItems';
+import ListUsersPage from './Pages/ListUsers';
 import Layout from './Components/Layout';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
   <Route path="/admindashboard" element={<AdminDashboard />} />
   <Route path="/registeremployee" element={<RegisterEmployee />} />
   <Route path="/listallitems" element={<ItemsListPage />} />
+  <Route path="/listusers" element={<ListUsersPage />} />
 
 
 
