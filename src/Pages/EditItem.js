@@ -1,25 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../Styles/CreateItem.css'; // Create the stylesheet as needed
+import { useParams } from 'react-router-dom'; // Import useParams
+import '../Styles/EditItem.css';
 
-const CreateItem = () => {
-  const [itemType, setItemType] = useState('Film'); // Default to Film type
+const EditItem = ({ match }) => {
+ const { guid } = useParams(); // Use useParams to get the guid
+  const [itemType, setItemType] = useState('Film'); // Initialize this based on your logic
   const [itemDetails, setItemDetails] = useState({
     Title: '',
     Description: '',
-    Brand: '', // Added Brand property
-    Price: '', // Added Price property
-    IsAvailable: true, // Added IsAvailable property (default to true or false based on your preference)
-    TitleImageUrl: '', // Added TitleImageUrl property
-    AdditionalImageUrls: [], // Added AdditionalImageUrls property as an array
-    // Add common item details here
+    Brand: '',
+    Price: 0,
+    Quantity: 0,
+    IsAvailable: false,
+    TitleImageUrl: '',
+    AdditionalImageUrls: [],
+    ItemBrandId: 0,
   });
+
   const [filmDetails, setFilmDetails] = useState({
     FilmColorState: 0,
     FilmFormat: 35,
     FilmISO: 200,
     FilmExposure: 36,
   });
+
   const [cameraDetails, setCameraDetails] = useState({
     CameraFocalLength: 35,
     CameraMaxShutterSpeed: 100,
@@ -27,91 +32,102 @@ const CreateItem = () => {
     CameraFilmFormat: 35,
   });
 
-  const handleItemTypeChange = (e) => {
-    setItemType(e.target.value);
-  };
+  useEffect(() => {
+    const fetchItem = async () => {
+        try {
+          const response = await axios.get(`http://localhost:5232/api/Item/getItem/${guid}`);
+          const data = response.data;
+      
+          // Set common item details
+          setItemDetails({
+            Title: data.Title,
+            Description: data.Description,
+            Quantity: data.Quantity,
+            Price: data.Price,
+            Brand: data.Brand,
+            ItemBrandId: data.ItemBrandId,
+            IsAvailable: data.IsAvailable,
+            TitleImageUrl: data.TitleImageUrl,
+            AdditionalImageUrls: data.AdditionalImageUrls,
+          });
+      
+          // Check the ItemType and set details accordingly
+          if (data.ItemType === 0) { // Assuming 0 is for Film
+            setItemType('Film');
+            setFilmDetails({
+              FilmColorState: data.FilmColorState,
+              FilmFormat: data.FilmFormat,
+              FilmISO: data.FilmISO,
+              FilmExposure: data.FilmExposure,
+            });
+          } else if (data.ItemType === 1) { // Assuming 1 is for Camera
+            setItemType('Camera');
+            // Set cameraDetails here similarly if you have camera-specific properties
+          }
+      
+        } catch (error) {
+          console.error('Error fetching item:', error);
+        }
+      };
+      
+    fetchItem();
+  }, [guid]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setItemDetails({
-      ...itemDetails,
-      [name]: value,
-    });
+    setItemDetails({ ...itemDetails, [name]: value });
   };
 
   const handleTitleImageUrlChange = (e) => {
-    const { value } = e.target;
-    setItemDetails({
-      ...itemDetails,
-      TitleImageUrl: value,
-    });
+    setItemDetails({ ...itemDetails, TitleImageUrl: e.target.value });
   };
 
   const handleAdditionalImageUrlsChange = (e) => {
-    const { value } = e.target;
-    // Split the comma-separated string into an array
-    const urlsArray = value.split(',').map(url => url.trim());
-    
-    setItemDetails({
-      ...itemDetails,
-      AdditionalImageUrls: urlsArray,
-    });
+    const urls = e.target.value.split(',').map(url => url.trim());
+    setItemDetails({ ...itemDetails, AdditionalImageUrls: urls });
   };
-
-  
 
   const handleFilmInputChange = (e) => {
     const { name, value } = e.target;
     setFilmDetails({
       ...filmDetails,
-      [name]: value,
+      [name]: parseInt(value, 10) // Parse as integer
     });
   };
+  
 
   const handleCameraInputChange = (e) => {
     const { name, value } = e.target;
     setCameraDetails({
       ...cameraDetails,
-      [name]: value,
+      [name]: parseInt(value, 10) // Parse as integer
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Prepare the data based on item type
-      let itemData = {};
-      if (itemType === 'Film') {
-        itemData = { ItemDetails: itemDetails, FilmDetails: filmDetails };
-      } else if (itemType === 'Camera') {
-        itemData = { ItemDetails: itemDetails, CameraDetails: cameraDetails };
-      }
+      const editItemDTO = {
+        ItemDetails: itemDetails,
+        FilmDetails: filmDetails,
+        CameraDetails: cameraDetails,
+      };
 
-      // Send a POST request to the createItem endpoint
-      const response = await axios.post(`http://localhost:5232/api/Item/createItem/${itemType}`, itemData, {
-        withCredentials: true
+      await axios.put(`http://localhost:5232/api/Item/editItem/${guid}`, editItemDTO, {
+        withCredentials: true // Include this to send cookies with the request
       });
-
-      console.log(response.data);
+  
+      alert('Item updated successfully!');
     } catch (error) {
-      console.error('Item creation failed:', error);
+      console.error('Error updating item:', error);
     }
   };
 
-
   return (
-    <div className="create-item-container">
-      <h2>Create New Item</h2>
-      <form onSubmit={handleSubmit} className="create-item-form">
-        <div className="form-group">
-          <label>Item Type:</label>
-          <select name="itemType" value={itemType} onChange={handleItemTypeChange}>
-            <option value="Film">Film</option>
-            <option value="Camera">Camera</option>
-            {/* Add other item types here */}
-          </select>
-        </div>
+    <div className="edit-item-container">
+      <h2>Edit Item</h2>
+      <form onSubmit={handleSubmit} className="edit-item-form">
+        {/* General Item Details */}
         <div className="form-group">
           <label>Title:</label>
           <input
@@ -130,7 +146,6 @@ const CreateItem = () => {
             onChange={handleInputChange}
           />
         </div>
-
         <div className="form-group">
           <label>Brand:</label>
           <input
@@ -139,6 +154,17 @@ const CreateItem = () => {
             value={itemDetails.Brand}
             onChange={handleInputChange}
           />
+          </div>
+
+          <div className="form-group">
+          <label>Brand Id:</label>
+          <input
+            type="number"
+            name="ItemBrandId"
+            value={itemDetails.ItemBrandId}
+            onChange={handleInputChange}
+          />
+          
         </div>
         <div className="form-group">
           <label>Price:</label>
@@ -151,9 +177,8 @@ const CreateItem = () => {
             required
           />
         </div>
-
         <div className="form-group">
-          <label>IsAvailable:</label>
+          <label>Is Available:</label>
           <input
             type="checkbox"
             name="IsAvailable"
@@ -161,12 +186,10 @@ const CreateItem = () => {
             onChange={(e) => {
               setItemDetails({ ...itemDetails, IsAvailable: e.target.checked });
             }}
-            
           />
         </div>
-
         <div className="form-group">
-          <label>Title Image Url:</label>
+          <label>Title Image URL:</label>
           <input
             type="text"
             name="TitleImageUrl"
@@ -174,7 +197,6 @@ const CreateItem = () => {
             onChange={handleTitleImageUrlChange}
           />
         </div>
-
         <div className="form-group">
           <label>Additional Image URLs (comma-separated):</label>
           <input
@@ -184,7 +206,8 @@ const CreateItem = () => {
             onChange={handleAdditionalImageUrlsChange}
           />
         </div>
-
+  
+        {/* Film Specific Details */}
         {itemType === 'Film' && (
           <>
             <div className="form-group">
@@ -225,6 +248,8 @@ const CreateItem = () => {
             </div>
           </>
         )}
+  
+        {/* Camera Specific Details */}
         {itemType === 'Camera' && (
           <>
             <div className="form-group">
@@ -265,10 +290,11 @@ const CreateItem = () => {
             </div>
           </>
         )}
-        <button type="submit">Create Item</button>
+  
+        <button type="submit">Save Changes</button>
       </form>
     </div>
   );
-};
+}
+export default EditItem;
 
-export default CreateItem;
