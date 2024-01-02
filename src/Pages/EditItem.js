@@ -15,7 +15,7 @@ const EditItem = ({ match }) => {
     IsAvailable: false,
     TitleImageUrl: '',
     AdditionalImageUrls: [],
-    ItemBrandId: 0,
+
   });
 
   const [filmDetails, setFilmDetails] = useState({
@@ -45,7 +45,6 @@ const EditItem = ({ match }) => {
             Quantity: data.Quantity,
             Price: data.Price,
             Brand: data.Brand,
-            ItemBrandId: data.ItemBrandId,
             IsAvailable: data.IsAvailable,
             TitleImageUrl: data.TitleImageUrl,
             AdditionalImageUrls: data.AdditionalImageUrls,
@@ -154,18 +153,8 @@ const EditItem = ({ match }) => {
             value={itemDetails.Brand}
             onChange={handleInputChange}
           />
-          </div>
-
-          <div className="form-group">
-          <label>Brand Id:</label>
-          <input
-            type="number"
-            name="ItemBrandId"
-            value={itemDetails.ItemBrandId}
-            onChange={handleInputChange}
-          />
-          
         </div>
+        
         <div className="form-group">
           <label>Price:</label>
           <input

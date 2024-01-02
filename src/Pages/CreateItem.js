@@ -64,17 +64,18 @@ const CreateItem = () => {
     const { name, value } = e.target;
     setFilmDetails({
       ...filmDetails,
-      [name]: value,
+      [name]: parseInt(value, 10) || 0, // Parse as integer, default to 0 if NaN
     });
   };
-
+  
   const handleCameraInputChange = (e) => {
     const { name, value } = e.target;
     setCameraDetails({
       ...cameraDetails,
-      [name]: value,
+      [name]: parseInt(value, 10) || 0, // Parse as integer, default to 0 if NaN
     });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -128,6 +129,7 @@ const CreateItem = () => {
             name="Description"
             value={itemDetails.Description}
             onChange={handleInputChange}
+            required
           />
         </div>
 
@@ -138,6 +140,7 @@ const CreateItem = () => {
             name="Brand"
             value={itemDetails.Brand}
             onChange={handleInputChange}
+            required
           />
         </div>
         <div className="form-group">
@@ -172,6 +175,7 @@ const CreateItem = () => {
             name="TitleImageUrl"
             value={itemDetails.TitleImageUrl}
             onChange={handleTitleImageUrlChange}
+            required
           />
         </div>
 
@@ -182,6 +186,7 @@ const CreateItem = () => {
             name="AdditionalImageUrls"
             value={itemDetails.AdditionalImageUrls.join(', ')}
             onChange={handleAdditionalImageUrlsChange}
+            required
           />
         </div>
 
@@ -194,6 +199,7 @@ const CreateItem = () => {
                 name="FilmColorState"
                 value={filmDetails.FilmColorState}
                 onChange={handleFilmInputChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -203,6 +209,7 @@ const CreateItem = () => {
                 name="FilmFormat"
                 value={filmDetails.FilmFormat}
                 onChange={handleFilmInputChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -212,6 +219,7 @@ const CreateItem = () => {
                 name="FilmISO"
                 value={filmDetails.FilmISO}
                 onChange={handleFilmInputChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -221,6 +229,7 @@ const CreateItem = () => {
                 name="FilmExposure"
                 value={filmDetails.FilmExposure}
                 onChange={handleFilmInputChange}
+                required
               />
             </div>
           </>
@@ -234,6 +243,7 @@ const CreateItem = () => {
                 name="CameraFocalLength"
                 value={cameraDetails.CameraFocalLength}
                 onChange={handleCameraInputChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -243,6 +253,7 @@ const CreateItem = () => {
                 name="CameraMaxShutterSpeed"
                 value={cameraDetails.CameraMaxShutterSpeed}
                 onChange={handleCameraInputChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -252,6 +263,7 @@ const CreateItem = () => {
                 name="CameraMegapixel"
                 value={cameraDetails.CameraMegapixel}
                 onChange={handleCameraInputChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -261,6 +273,7 @@ const CreateItem = () => {
                 name="CameraFilmFormat"
                 value={cameraDetails.CameraFilmFormat}
                 onChange={handleCameraInputChange}
+                required
               />
             </div>
           </>
