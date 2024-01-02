@@ -13,7 +13,6 @@
 
   .brand-name {
     text-align: center;
-    margin-right: 140px;
     flex-grow: 2;
     font-size: 24px; /* Adjust size as needed */
     font-weight: bold;

@@ -15,16 +15,16 @@ const CreateItem = () => {
     // Add common item details here
   });
   const [filmDetails, setFilmDetails] = useState({
-    FilmColorState: '0',
-    FilmFormat: '',
-    FilmISO: '',
-    FilmExposure: '',
+    FilmColorState: 0,
+    FilmFormat: 35,
+    FilmISO: 200,
+    FilmExposure: 36,
   });
   const [cameraDetails, setCameraDetails] = useState({
-    CameraFocalLength: '',
-    CameraMaxShutterSpeed: '',
-    CameraMegapixel: '',
-    CameraFilmFormat: '',
+    CameraFocalLength: 35,
+    CameraMaxShutterSpeed: 100,
+    CameraMegapixel: 24,
+    CameraFilmFormat: 35,
   });
 
   const handleItemTypeChange = (e) => {
@@ -58,6 +58,8 @@ const CreateItem = () => {
     });
   };
 
+  
+
   const handleFilmInputChange = (e) => {
     const { name, value } = e.target;
     setFilmDetails({
@@ -76,30 +78,27 @@ const CreateItem = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-      // Prepare the data
-      const itemData = {
-        ...(itemType === 'Film' ? { FilmDetails: filmDetails } : {}),
-        ...(itemType === 'Camera' ? { CameraDetails: cameraDetails } : {}),
-      };
-  
-      // Wrap the data in createItemDTO
-      const createItemDTO = {
-        ItemDetails: itemDetails,
-        TypeSpecificDetails: itemData
-      };
-  
+      // Prepare the data based on item type
+      let itemData = {};
+      if (itemType === 'Film') {
+        itemData = { ItemDetails: itemDetails, FilmDetails: filmDetails };
+      } else if (itemType === 'Camera') {
+        itemData = { ItemDetails: itemDetails, CameraDetails: cameraDetails };
+      }
+
       // Send a POST request to the createItem endpoint
-      const response = await axios.post(`http://localhost:5232/api/Item/createItem/${itemType}`, { createItemDTO });
-  
-      // Handle the response
+      const response = await axios.post(`http://localhost:5232/api/Item/createItem/${itemType}`, itemData, {
+        withCredentials: true
+      });
+
       console.log(response.data);
     } catch (error) {
       console.error('Item creation failed:', error);
-      // Handle the error
     }
   };
+
 
   return (
     <div className="create-item-container">
@@ -160,9 +159,9 @@ const CreateItem = () => {
             name="IsAvailable"
             checked={itemDetails.IsAvailable}
             onChange={(e) => {
-              // Toggle between true and false when the checkbox is clicked
-              setItemDetails({ ...itemDetails, IsAvailable: !itemDetails.IsAvailable });
+              setItemDetails({ ...itemDetails, IsAvailable: e.target.checked });
             }}
+            
           />
         </div>
 
@@ -189,7 +188,7 @@ const CreateItem = () => {
         {itemType === 'Film' && (
           <>
             <div className="form-group">
-              <label>Is it Coloured 0=no 1:yes:</label>
+              <label>Is it Colored:</label>
               <input
                 type="number"
                 name="FilmColorState"
