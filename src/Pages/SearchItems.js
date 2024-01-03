@@ -60,6 +60,26 @@ const SearchItems = () => {
     navigate(`/product/${guid}`); // Navigate to the ProductPage with the guid
   };
 
+  const addToCart = (item, quantityToPurchase) => {
+    let cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    // Find the index of the item in the cart
+    const existingItemIndex = cart.findIndex(cartItem => cartItem.guid === item.guid);
+  
+    // Parse the quantity to purchase as an integer, default to 1 if undefined
+    const quantity = parseInt(quantityToPurchase, 10) || 1;
+  
+    if (existingItemIndex !== -1) {
+      // If the item exists, update the quantity to purchase
+      cart[existingItemIndex].quantityToPurchase += quantity;
+    } else {
+      // If the item doesn't exist, add the new item with the quantity to purchase
+      cart.push({ ...item, quantityToPurchase: quantity });
+    }
+  
+    // Save the updated cart back to session storage
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+  };
+  
   return (
     <div className="search-items-container">
       <h2 className="search-items-title">Search Results for "{searchTerm}"</h2>
@@ -98,7 +118,7 @@ const SearchItems = () => {
           <option value="descending">Descending</option>
         </select>
 
-        <button type="submit">Apply Filters</button>
+        <button type="search-filter-form">Apply Filters</button>
       </form>
 
       {searchResults.length === 0 ? (
@@ -120,6 +140,21 @@ const SearchItems = () => {
                 </div>
                 <div className="item-price">₺{item.Price.toFixed(2)}</div>
               </div>
+              
+              <input
+              type="number"
+              min="1"
+              defaultValue="1"
+              onChange={(e) => item.quantityToPurchase = parseInt(e.target.value, 10)}
+              className="quantity-input"
+            />
+            <button
+              onClick={() => addToCart(item, item.quantityToPurchase)}
+              className="add-to-cart-button"
+            >
+              Add to Cart
+            </button>
+              
             </div>
           ))}
         </div>

@@ -58,7 +58,7 @@ const SearchBar = () => {
         {isLoggedIn && (
           <>
             {userRoles.includes('Customer') && (
-              <Link to="/cart" className="cart-button">
+              <Link to="/shoppingcart" className="cart-button">
                 Cart
               </Link>
             )}

@@ -13,12 +13,14 @@ import AdminDashboard from './Pages/AdminDashboard';
 import RegisterEmployee from './Pages/RegisterEmployee';
 import ItemsListPage from './Pages/ListAllItems';
 import ListUsersPage from './Pages/ListUsers';
+import ShoppingCart from './Pages/ShoppingCart';
 import Layout from './Components/Layout';
 
 function App() {
   return (
     <Router>
       <Layout>
+      
       <Routes>
   <Route path="/search" element={<SearchItems />} />
   <Route path="/" element={<HomePage />} />
@@ -33,13 +35,12 @@ function App() {
   <Route path="/registeremployee" element={<RegisterEmployee />} />
   <Route path="/listallitems" element={<ItemsListPage />} />
   <Route path="/listusers" element={<ListUsersPage />} />
-
-
-
+  <Route path="/shoppingcart" element={<ShoppingCart />} />
   {/* Add more routes for other pages */}
 </Routes>
      </Layout>
     </Router>
+    
   );
 }
 

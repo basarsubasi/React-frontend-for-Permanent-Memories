@@ -11,7 +11,7 @@ const CamerasPage = () => {
     maxPrice: '',
     isAvailable: '',
     brand: '',
-    sortOrder: 'ascending',
+    sortOrder: 'descending',
   });
   const navigate = useNavigate();
 

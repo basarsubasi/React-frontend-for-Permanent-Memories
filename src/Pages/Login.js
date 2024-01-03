@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5232/api/auth/login', formData, {withCredentials: true}); // or axios.post('http://localhost:5232/api/auth/login', formData, {withCredentials: true});
+      const response = await axios.post('http://localhost:5232/api/auth/login', formData, {withCredentials: true});
       // Store user information in session/local storage
       sessionStorage.setItem('user', JSON.stringify(response.data)); // or localStorage.setItem('user', JSON.stringify(response.data));
 
