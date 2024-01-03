@@ -1,4 +1,4 @@
-/* Styles/Search.css */
+/* Styles/search.css */
 
 .search-items-container {
   padding: 20px;
@@ -65,7 +65,7 @@
 }
 
 .item-image {
-  width: 100%; /* Full width image */
+  width: 50%; /* Full width image */
   height: auto; /* Maintain aspect ratio */
   margin-bottom: 15px; /* Space below image */
   border-radius: 4px; /* Rounded corners for image */
@@ -130,7 +130,7 @@
   margin-right: 10px; /* Space before add to cart button */
 }
 
-.add-to-cart-btn {
+.add-to-cart-button {
   padding: 8px 15px;
   background-color: #f0c14b; /* Vibrant color for the button */
   color: white;
@@ -140,6 +140,6 @@
   transition: background-color 0.3s;
 }
 
-.add-to-cart-btn:hover {
+.add-to-cart-button:hover {
   background-color: #daaf42; /* Darker shade on hover */
 }

@@ -1,109 +1,145 @@
 /* Styles/camera.css */
 
 .camera-items-container {
-    padding: 20px;
-  }
-  
-  .camera-items-title {
-    margin-bottom: 20px;
-  }
-  
-  .camera-filter-form {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-  
-  .camera-filter-form input,
-  .camera-filter-form select {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-  }
-  
-  .camera-filter-form button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  .camera-filter-form button:hover {
-    background-color: #388E3C;
-  }
-  
-  .camera-results-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  
-  .camera-item-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .item-image {
-    width: 150px;
-    height: 150px;
-    margin-right: 20px;
-  }
-  
-  .item-content {
-    flex-grow: 1;
-  }
-  
-  .item-title {
-    font-size: 1.25rem;
-    color: #333;
-  }
-  
-  .item-description {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .item-description li {
-    margin-bottom: 5px;
-  }
-  
-  .item-availability {
-    font-weight: bold;
-    color: #4CAF50;
-  }
-  
-  .out-of-stock {
-    color: #E53935;
-  }
-  
-  .item-price {
-    font-size: 1.5rem;
-    color: #E65100;
-    margin: 10px 0;
-  }
-  
-  .item-actions {
-    font-size: 1.25rem;
-    display: flex;
-    gap: 10px;
-  }
-  
-  .no-results-message {
-    font-size: 1.2rem;
-    color: #666;
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .item-title:hover {
-    cursor: pointer;
-  }
-  
-  
+  padding: 20px;
+  background: #f9f9f9; /* Light background for the whole container */
+}
+
+.camera-items-title {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2rem; /* Larger title size */
+}
+
+.camera-filter-form {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the form in the page */
+}
+
+.camera-filter-form input,
+.camera-filter-form select {
+  padding: 10px 15px; /* Increased padding for better touch */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add shadow for depth */
+}
+
+.camera-filter-form button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.camera-filter-form button:hover {
+  background-color: #388E3C;
+}
+
+.camera-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust for better fit */
+  gap: 20px;
+}
+
+.camera-item-card {
+  background: #ffffff; /* White background for cards */
+  border: none; /* Remove borders */
+  border-radius: 8px; /* Rounded corners for card */
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Stack image on top of content */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Add shadow for card */
+  transition: transform 0.3s; /* Transition for hover effect */
+}
+
+.camera-item-card:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+.item-image {
+  width: 50%; /* Full width image */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 15px; /* Space below image */
+  border-radius: 4px; /* Rounded corners for image */
+}
+
+.item-content {
+  flex-grow: 1;
+}
+
+.item-title {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 5px; /* Add margin for spacing */
+}
+
+.item-description {
+  list-style-type: none;
+  padding: 0;
+  color: #666; /* Lighter text color for description */
+}
+
+.item-description li {
+  margin-bottom: 5px;
+}
+
+.item-availability {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.out-of-stock {
+  color: #E53935;
+}
+
+.item-price {
+  font-size: 1.5rem;
+  color: #E65100;
+  margin: 10px 0;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between quantity and button */
+}
+
+.no-results-message {
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.item-title:hover {
+  cursor: pointer;
+  text-decoration: underline; /* Indicate clickable title */
+}
+
+.quantity-input {
+  width: 50px; /* Fixed width for quantity input */
+  text-align: center; /* Center text inside input */
+  margin-right: 10px; /* Space before add to cart button */
+}
+
+.add-to-cart-button {
+  padding: 8px 15px;
+  background-color: #f0c14b; /* Vibrant color for the button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-to-cart-button:hover {
+  background-color: #daaf42; /* Darker shade on hover */
+}

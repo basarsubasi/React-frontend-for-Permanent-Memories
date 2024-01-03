@@ -112,7 +112,7 @@ const CamerasPage = () => {
   };
 
   return (
-    <div className="camera-items-container">
+    <div className="item-items-container">
       <h2 className="camera-items-title">Cameras</h2>
 
       <form onSubmit={handleSubmit} className="camera-filter-form">

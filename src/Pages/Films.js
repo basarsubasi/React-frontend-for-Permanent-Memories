@@ -112,10 +112,10 @@ const CamerasPage = () => {
   };
 
   return (
-    <div className="camera-items-container">
-      <h2 className="camera-items-title">Cameras</h2>
+    <div className="item-items-container">
+      <h2 className="item-items-title">Films</h2>
 
-      <form onSubmit={handleSubmit} className="camera-filter-form">
+      <form onSubmit={handleSubmit} className="item-filter-form">
         <input
           type="text"
           name="title"
@@ -150,7 +150,6 @@ const CamerasPage = () => {
           <option value="">Select Brand</option>
           <option value="Kodak">Kodak</option>
           <option value="Agfa">Agfa</option>
-          <option value="Canon">Canon</option>
           <option value="Ilford">Ilford</option>
           {/* Add more brands as needed */}
         </select>
@@ -160,17 +159,17 @@ const CamerasPage = () => {
           <option value="descending">Descending</option>
         </select>
 
-        <button type="camera-filter-form">Apply Filters</button>
+        <button type="item-filter-form">Apply Filters</button>
       </form>
 
       {searchResults.length === 0 ? (
         <div className="no-results-message">
-          No cameras found matching the filters.
+          No films found matching the filters.
         </div>
       ) : (
-        <div className="camera-results-grid">
+        <div className="item-results-grid">
           {searchResults.map((item) => (
-            <div className="camera-item-card" key={item.GUID}>
+            <div className="item-item-card" key={item.GUID}>
               <img src={item.TitleImageUrl} alt={item.Title} className="item-image" />
               <div className="item-content">
                 <h3 className="item-title" onClick={() => navigateToProduct(item.GUID)}>
