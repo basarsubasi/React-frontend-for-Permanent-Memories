@@ -65,10 +65,11 @@
 }
 
 .item-image {
-  width: 50%; /* Full width image */
-  height: auto; /* Maintain aspect ratio */
-  margin-bottom: 15px; /* Space below image */
-  border-radius: 4px; /* Rounded corners for image */
+  width: auto; /* Set a fixed width */
+  height: auto; /* Set a fixed height */
+  object-fit: cover; /* This will cover the area of the box without stretching the image */
+  margin-bottom: 15px;
+  border-radius: 4px;
 }
 
 .item-content {
@@ -133,7 +134,7 @@
 .add-to-cart-button {
   padding: 8px 15px;
   background-color: #f0c14b; /* Vibrant color for the button */
-  color: white;
+  color: #131921;
   border: none;
   border-radius: 4px;
   cursor: pointer;

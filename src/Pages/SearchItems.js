@@ -38,9 +38,21 @@ const SearchItems = () => {
           descending: filter.sortOrder === 'descending',
         },
       });
-      setSearchResults(response.data);
+
+      
+      if (response.status === 200) {
+        setSearchResults(response.data);
+      } else if (response.status === 404) {
+        // If the response is 404 (NotFound), set the searchResults to an empty array
+        setSearchResults([]);
+        alert('No items found matching the filters.');
+      }
+  
     } catch (error) {
-      console.error('Error searching items:', error);
+      console.error('Error fetching cameras:', error);
+      // Handle other types of errors (like network issues) here
+      // Optionally, clear the search results or provide a different user feedback
+      setSearchResults([]);
     }
   };
 

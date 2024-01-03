@@ -1,19 +1,33 @@
-/* Styles/NavBar.css */
+/* Styles for Nav Container */
 .nav-container {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    flex-direction: column; /* Stack items vertically */
     text-align: center;
 }
 
+/* Styles for Nav List */
 .nav-list {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex; /* Use flexbox for the list */
+    justify-content: center; /* Center list items */
+    flex-wrap: wrap; /* Allow items to wrap in smaller screens */
 }
 
+/* Styles for Nav Item */
 .nav-item {
     display: inline-block;
     margin-right: 20px; /* Adjust spacing between items */
 }
 
+.nav-item:last-child {
+    margin-right: 0; /* Remove margin for the last item */
+}
+
+/* Styles for Nav Link */
 .nav-link {
     text-decoration: none;
     color: white; /* Adjust link color */

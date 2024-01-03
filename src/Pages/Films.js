@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../Styles/Cameras.css'; // Assuming similar styling as SearchItems
+import '../Styles/Films.css'; // Assuming similar styling as SearchItems
 
 
 const addToCart = (item, quantityToPurchase) => {
@@ -63,14 +63,28 @@ const CamerasPage = () => {
           descending: filter.sortOrder === 'descending',
         },
       });
-      setSearchResults(response.data);
+
+      
+      if (response.status === 200) {
+        setSearchResults(response.data);
+      } else if (response.status === 404) {
+        // If the response is 404 (NotFound), set the searchResults to an empty array
+        setSearchResults([]);
+        alert('No items found matching the filters.');
+      }
+  
     } catch (error) {
       console.error('Error fetching cameras:', error);
+      // Handle other types of errors (like network issues) here
+      // Optionally, clear the search results or provide a different user feedback
+      setSearchResults([]);
     }
   };
 
   const handleFilterChange = (event) => {
     setFilter({ ...filter, [event.target.name]: event.target.value });
+    
+  
   };
 
   const handleSubmit = (event) => {
@@ -112,10 +126,10 @@ const CamerasPage = () => {
   };
 
   return (
-    <div className="item-items-container">
-      <h2 className="item-items-title">Films</h2>
+    <div className="camera-items-container">
+      <h2 className="camera-items-title">Films</h2>
 
-      <form onSubmit={handleSubmit} className="item-filter-form">
+      <form onSubmit={handleSubmit} className="camera-filter-form">
         <input
           type="text"
           name="title"
@@ -159,7 +173,7 @@ const CamerasPage = () => {
           <option value="descending">Descending</option>
         </select>
 
-        <button type="item-filter-form">Apply Filters</button>
+        <button type="camera-filter-form">Apply Filters</button>
       </form>
 
       {searchResults.length === 0 ? (
@@ -167,19 +181,19 @@ const CamerasPage = () => {
           No films found matching the filters.
         </div>
       ) : (
-        <div className="item-results-grid">
+        <div className="camera-results-grid">
           {searchResults.map((item) => (
-            <div className="item-item-card" key={item.GUID}>
+            <div className="search-item-card" key={item.GUID}>
               <img src={item.TitleImageUrl} alt={item.Title} className="item-image" />
-              <div className="item-content">
-                <h3 className="item-title" onClick={() => navigateToProduct(item.GUID)}>
+              <div className="camera-content">
+                <h3 className="camera-title" onClick={() => navigateToProduct(item.GUID)}>
                   {item.Title}
                 </h3>
-                <div className="item-description">{item.Description}</div>
-                <div className={`item-availability ${!item.IsAvailable ? 'out-of-stock' : ''}`}>
+                <div className="camera-description">{item.Description}</div>
+                <div className={`item-availability ${!item.IsAvailable ? 'out-of-stock' : 'in-stock'}`}>
                   {item.IsAvailable ? 'In stock' : 'Out of stock'}
                 </div>
-                <div className="item-price">₺{item.Price.toFixed(2)}</div>
+                <div className="camera-price">₺{item.Price.toFixed(2)}</div>
               </div>
 
               <input

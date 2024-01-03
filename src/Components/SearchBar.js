@@ -2,7 +2,6 @@
 // Components/SearchBar.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import '../Styles/SearchBar.css';
 
 const SearchBar = () => {
@@ -11,6 +10,7 @@ const SearchBar = () => {
 
   const user = JSON.parse(sessionStorage.getItem('user'));
   const isLoggedIn =!!user;
+  const UserName= user?.UserName; // Extract the Username from the user object
   const userRoles = user?.Roles; // Default to an empty array if Roles is not present
 
 
@@ -48,6 +48,8 @@ const SearchBar = () => {
       <div className="auth-buttons">
         {!isLoggedIn && (
           <>
+          
+
             <Link to="/signup" className="signup-button">
               Signup
             </Link>
@@ -56,13 +58,22 @@ const SearchBar = () => {
             </Link>
           </>
         )}
+        
         {isLoggedIn && (
           <>
-            {userRoles.includes('Customer') && (
-              <Link to="/shoppingcart" className="cart-button">
-                Cart
+          <span className="username-display">Welcome, {UserName}</span>
+
+          {userRoles.includes('Customer') && (
+  <>
+          <Link to="/shoppingcart" className="cart-button">
+          Cart
+           </Link>
+    
+          <Link to="/customerdashboard" className="cart-button">
+           Customer Dashboard
               </Link>
-            )}
+              </>
+             )}
             {userRoles.includes('Employee') && (
               <Link to="/employeedashboard" className="cart-button">
                 Employee Dashboard
@@ -75,7 +86,7 @@ const SearchBar = () => {
               </Link>
             )}
 
-            <button onClick={handleLogout} className="logout-button">
+            <button onClick={handleLogout} className="cart-button">
               Logout
             </button>
           </>

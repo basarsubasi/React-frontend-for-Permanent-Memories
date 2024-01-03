@@ -31,7 +31,7 @@
     border-radius: 5px;
   }
   
-  .login-button {
+  .slogin-button {
     width: 100%;
     padding: 10px;
     background-color: #f0c14b;
@@ -42,7 +42,7 @@
     transition: background-color 0.2s;
   }
   
-  .login-button:hover {
-    background-color: #0056b3;
+  .slogin-button:hover {
+    background-color: #b08f3a;
   }
   

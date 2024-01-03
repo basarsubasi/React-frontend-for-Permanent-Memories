@@ -1,17 +1,17 @@
-/* Styles/Search.css */
+/* Styles/camera.css */
 
-.search-items-container {
+.camera-items-container {
   padding: 20px;
   background: #f9f9f9; /* Light background for the whole container */
 }
 
-.search-items-title {
+.camera-items-title {
   margin-bottom: 20px;
   text-align: center;
   font-size: 2rem; /* Larger title size */
 }
 
-.search-filter-form {
+.camera-filter-form {
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
@@ -19,8 +19,8 @@
   justify-content: center; /* Center the form in the page */
 }
 
-.search-filter-form input,
-.search-filter-form select {
+.camera-filter-form input,
+.camera-filter-form select {
   padding: 10px 15px; /* Increased padding for better touch */
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -28,7 +28,7 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add shadow for depth */
 }
 
-.search-filter-form button {
+.camera-filter-form button {
   padding: 10px 20px;
   background-color: #4CAF50;
   color: white;
@@ -39,11 +39,11 @@
   transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
-.search-filter-form button:hover {
+.camera-filter-form button:hover {
   background-color: #388E3C;
 }
 
-.search-results-grid {
+.camera-results-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust for better fit */
   gap: 20px;
@@ -65,10 +65,11 @@
 }
 
 .item-image {
-  width: 50%; /* Full width image */
-  height: auto; /* Maintain aspect ratio */
-  margin-bottom: 15px; /* Space below image */
-  border-radius: 4px; /* Rounded corners for image */
+  width: 100%; /* Full width image */
+  height: auto; /* Set a fixed height */
+  object-fit: cover; /* This will cover the area of the box without stretching the image */
+  margin-bottom: 15px;
+  border-radius: 4px;
 }
 
 .item-content {
@@ -98,6 +99,10 @@
 
 .out-of-stock {
   color: #E53935;
+}
+
+.in-stock {
+  color: #4CAF50;
 }
 
 .item-price {
@@ -130,16 +135,16 @@
   margin-right: 10px; /* Space before add to cart button */
 }
 
-.add-to-cart-btn {
+.add-to-cart-button {
   padding: 8px 15px;
   background-color: #f0c14b; /* Vibrant color for the button */
-  color: white;
+  color: #131921;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.add-to-cart-btn:hover {
+.add-to-cart-button:hover {
   background-color: #daaf42; /* Darker shade on hover */
 }

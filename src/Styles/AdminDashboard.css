@@ -12,8 +12,8 @@
   
   .admin-dashboard button {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
+    background-color: #f0c14b;
+    color: #131921;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -22,7 +22,7 @@
   }
   
   .admin-dashboard button:hover {
-    background-color: #0056b3;
+    background-color: #cca134;
   }
   
   .admin-dashboard button:focus {
