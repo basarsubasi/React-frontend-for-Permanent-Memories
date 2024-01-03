@@ -12,7 +12,8 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #ccc;
-    padding: 10px 0;
+    padding: 10px;
+    margin-bottom: 10px; /* Adds space between items */
   }
   
   .cart-item img {
@@ -20,10 +21,21 @@
     margin-right: 20px;
   }
   
+  .cart-item-details {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 20px; /* Ensures space between details and input */
+  }
+  
   .cart-item h3 {
     font-size: 1.2rem;
     margin: 0;
     flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Ensures the text doesn't overflow */
   }
   
   .cart-item p {
@@ -32,21 +44,21 @@
   }
   
   .quantity-input {
-    width: 50px; /* Adjust as needed */
+    width: 60px; /* Smaller width for the input */
     margin-right: 10px;
     text-align: center;
   }
   
-  button {
+  .remove-button {
     background-color: #f44336; /* Example color */
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 5px 15px;
     cursor: pointer;
     transition: background-color 0.3s;
   }
   
-  button:hover {
+  .remove-button:hover {
     background-color: #d32f2f; /* Darken on hover */
   }
   
@@ -54,6 +66,8 @@
     font-size: 1.5rem;
     margin-top: 20px;
     text-align: right;
+    padding-top: 10px; /* Adds space above the total */
+    border-top: 1px solid #ccc; /* Adds a line above the total */
   }
   
   /* Responsive design adjustments */
@@ -67,7 +81,20 @@
       margin-bottom: 10px;
     }
   
-    .quantity-input, button {
+    .cart-item-details {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-right: 0;
+    }
+  
+    .quantity-input {
+        width: 1px; /* Adjusted to a smaller width */
+        margin-right: 10px;
+        text-align: center;
+      }
+    
+    .remove-button {
+      width: 100%; /* Full width on small screens */
       margin-top: 10px;
     }
   

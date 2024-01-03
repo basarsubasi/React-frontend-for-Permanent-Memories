@@ -56,14 +56,23 @@ const SearchItems = () => {
     handleSearch(searchTerm);
   };
 
-  const navigateToProduct = (guid) => {
-    navigate(`/product/${guid}`); // Navigate to the ProductPage with the guid
+  const navigateToProduct = (GUID) => {
+    navigate(`/product/${GUID}`); // Navigate to the ProductPage with the GUID
   };
 
   const addToCart = (item, quantityToPurchase) => {
+
+    if (!item.IsAvailable) {
+      alert('This item is out of stock');
+      return;
+    }
+    if (item.Quantity < quantityToPurchase) {
+      alert('There is not enough stock to purchase this quantity');
+      return;
+    }
     let cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
     // Find the index of the item in the cart
-    const existingItemIndex = cart.findIndex(cartItem => cartItem.guid === item.guid);
+    const existingItemIndex = cart.findIndex(cartItem => cartItem.GUID === item.GUID);
   
     // Parse the quantity to purchase as an integer, default to 1 if undefined
     const quantity = parseInt(quantityToPurchase, 10) || 1;

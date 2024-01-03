@@ -2,10 +2,13 @@
 
 .search-items-container {
   padding: 20px;
+  background: #f9f9f9; /* Light background for the whole container */
 }
 
 .search-items-title {
   margin-bottom: 20px;
+  text-align: center;
+  font-size: 2rem; /* Larger title size */
 }
 
 .search-filter-form {
@@ -13,24 +16,27 @@
   gap: 15px;
   margin-bottom: 20px;
   flex-wrap: wrap;
+  justify-content: center; /* Center the form in the page */
 }
 
 .search-filter-form input,
 .search-filter-form select {
-  padding: 8px 12px;
+  padding: 10px 15px; /* Increased padding for better touch */
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add shadow for depth */
 }
 
 .search-filter-form button {
-  padding: 8px 15px;
+  padding: 10px 20px;
   background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
 .search-filter-form button:hover {
@@ -39,21 +45,30 @@
 
 .search-results-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust for better fit */
   gap: 20px;
 }
 
 .search-item-card {
-  border: 1px solid #ddd;
-  padding: 10px;
+  background: #ffffff; /* White background for cards */
+  border: none; /* Remove borders */
+  border-radius: 8px; /* Rounded corners for card */
+  padding: 20px;
   display: flex;
-  align-items: center;
+  flex-direction: column; /* Stack image on top of content */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Add shadow for card */
+  transition: transform 0.3s; /* Transition for hover effect */
+}
+
+.search-item-card:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
 }
 
 .item-image {
-  width: 150px;
-  height: 150px;
-  margin-right: 20px;
+  width: 100%; /* Full width image */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 15px; /* Space below image */
+  border-radius: 4px; /* Rounded corners for image */
 }
 
 .item-content {
@@ -63,11 +78,13 @@
 .item-title {
   font-size: 1.25rem;
   color: #333;
+  margin-bottom: 5px; /* Add margin for spacing */
 }
 
 .item-description {
   list-style-type: none;
   padding: 0;
+  color: #666; /* Lighter text color for description */
 }
 
 .item-description li {
@@ -90,9 +107,9 @@
 }
 
 .item-actions {
-  font-size: 1.25rem;
   display: flex;
-  gap: 10px;
+  align-items: center;
+  justify-content: space-between; /* Space between quantity and button */
 }
 
 .no-results-message {
@@ -104,5 +121,25 @@
 
 .item-title:hover {
   cursor: pointer;
+  text-decoration: underline; /* Indicate clickable title */
 }
 
+.quantity-input {
+  width: 50px; /* Fixed width for quantity input */
+  text-align: center; /* Center text inside input */
+  margin-right: 10px; /* Space before add to cart button */
+}
+
+.add-to-cart-btn {
+  padding: 8px 15px;
+  background-color: #f0c14b; /* Vibrant color for the button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #daaf42; /* Darker shade on hover */
+}

@@ -1,6 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import '../Styles/ShoppingCart.css';
 
+export const addToCart = (newItem) => {
+    // Get the current cart from session storage or initialize with an empty array
+    const currentCart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+  
+    // Check if the item already exists in the cart
+    const existingItemIndex = currentCart.findIndex(item => item.GUID === newItem.GUID);
+  
+    // Update the cart accordingly
+    if (existingItemIndex > -1) {
+      // If item exists, update its quantity
+      currentCart[existingItemIndex].quantityToPurchase += newItem.quantityToPurchase;
+    } else {
+      // If item doesn't exist, add the new item
+      currentCart.push(newItem);
+    }
+  
+    // Save the updated cart to session storage
+    sessionStorage.setItem('cart', JSON.stringify(currentCart));
+  };
+
 const ShoppingCart = () => {
   const [cartItems, setCartItems] = useState([]);
 
@@ -14,9 +34,9 @@ const ShoppingCart = () => {
     setCartItems(storedCartItems);
   };
 
-  const updateQuantity = (guid, newQuantity) => {
+  const updateQuantity = (GUID, newQuantity) => {
     let updatedCart = cartItems.map(item => {
-      if (item.guid === guid) {
+      if (item.GUID === GUID) {
         return { ...item, quantityToPurchase: newQuantity };
       }
       return item;
@@ -25,8 +45,8 @@ const ShoppingCart = () => {
     sessionStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
-  const deleteItem = (guid) => {
-    let updatedCart = cartItems.filter(item => item.guid !== guid);
+  const deleteItem = (GUID) => {
+    let updatedCart = cartItems.filter(item => item.GUID !== GUID);
     setCartItems(updatedCart);
     sessionStorage.setItem('cart', JSON.stringify(updatedCart));
   };
@@ -50,13 +70,13 @@ const ShoppingCart = () => {
               <h3>{item.Title}</h3>
               <p>Price: ₺{item.Price.toFixed(2)}
               </p>
-              <input 
+              <input  style={{ width: '40px' }}
                 type="number" 
                 value={item.quantityToPurchase} 
-                onChange={(e) => updateQuantity(item.guid, parseInt(e.target.value, 10))}
+                onChange={(e) => updateQuantity(item.GUID, parseInt(e.target.value, 10))}
                 min="1"
               />
-              <button onClick={() => deleteItem(item.guid)}>Remove</button>
+              <button onClick={() => deleteItem(item.GUID)}>Remove</button>
             </div>
           ))}
 

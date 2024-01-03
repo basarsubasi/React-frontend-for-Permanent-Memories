@@ -18,6 +18,7 @@ const SearchBar = () => {
     try {
       // Simply clear the session and redirect, without making an API call
       sessionStorage.removeItem('user');
+      sessionStorage.clear();
       navigate('/login');
     } catch (error) {
       console.error('Logout failed:', error);

@@ -3,6 +3,36 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../Styles/Cameras.css'; // Assuming similar styling as SearchItems
 
+
+const addToCart = (item, quantityToPurchase) => {
+
+  if (!item.IsAvailable) {
+    alert('This item is out of stock');
+    return;
+  }
+  if (item.Quantity < quantityToPurchase) {
+    alert('There is not enough stock to purchase this quantity');
+    return;
+  }
+  let cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+  // Find the index of the item in the cart
+  const existingItemIndex = cart.findIndex(cartItem => cartItem.GUID === item.GUID);
+
+  // Parse the quantity to purchase as an integer, default to 1 if undefined
+  const quantity = parseInt(quantityToPurchase, 10) || 1;
+
+  if (existingItemIndex !== -1) {
+    // If the item exists, update the quantity to purchase
+    cart[existingItemIndex].quantityToPurchase += quantity;
+  } else {
+    // If the item doesn't exist, add the new item with the quantity to purchase
+    cart.push({ ...item, quantityToPurchase: quantity });
+  }
+
+  // Save the updated cart back to session storage
+  sessionStorage.setItem('cart', JSON.stringify(cart));
+};
+
 const CamerasPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [filter, setFilter] = useState({
@@ -18,6 +48,7 @@ const CamerasPage = () => {
   useEffect(() => {
     handleSearch();
   }, []);
+  
 
   const handleSearch = async () => {
     try {
@@ -47,8 +78,37 @@ const CamerasPage = () => {
     handleSearch();
   };
 
-  const navigateToProduct = (guid) => {
-    navigate(`/product/${guid}`);
+  const navigateToProduct = (GUID) => {
+    navigate(`/product/${GUID}`);
+  };
+
+  const addToCart = (item, quantityToPurchase) => {
+
+    if (!item.IsAvailable) {
+      alert('This item is out of stock');
+      return;
+    }
+    if (item.Quantity < quantityToPurchase) {
+      alert('There is not enough stock to purchase this quantity');
+      return;
+    }
+    let cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    // Find the index of the item in the cart
+    const existingItemIndex = cart.findIndex(cartItem => cartItem.GUID === item.GUID);
+  
+    // Parse the quantity to purchase as an integer, default to 1 if undefined
+    const quantity = parseInt(quantityToPurchase, 10) || 1;
+  
+    if (existingItemIndex !== -1) {
+      // If the item exists, update the quantity to purchase
+      cart[existingItemIndex].quantityToPurchase += quantity;
+    } else {
+      // If the item doesn't exist, add the new item with the quantity to purchase
+      cart.push({ ...item, quantityToPurchase: quantity });
+    }
+  
+    // Save the updated cart back to session storage
+    sessionStorage.setItem('cart', JSON.stringify(cart));
   };
 
   return (
@@ -109,19 +169,34 @@ const CamerasPage = () => {
         </div>
       ) : (
         <div className="camera-results-grid">
-          {searchResults.map((camera) => (
-            <div className="camera-item-card" key={camera.GUID}>
-              <img src={camera.TitleImageUrl} alt={camera.Title} className="item-image" />
+          {searchResults.map((item) => (
+            <div className="camera-item-card" key={item.GUID}>
+              <img src={item.TitleImageUrl} alt={item.Title} className="item-image" />
               <div className="item-content">
-                <h3 className="item-title" onClick={() => navigateToProduct(camera.GUID)}>
-                  {camera.Title}
+                <h3 className="item-title" onClick={() => navigateToProduct(item.GUID)}>
+                  {item.Title}
                 </h3>
-                <div className="item-description">{camera.Description}</div>
-                <div className={`item-availability ${!camera.IsAvailable ? 'out-of-stock' : ''}`}>
-                  {camera.IsAvailable ? 'In stock' : 'Out of stock'}
+                <div className="item-description">{item.Description}</div>
+                <div className={`item-availability ${!item.IsAvailable ? 'out-of-stock' : ''}`}>
+                  {item.IsAvailable ? 'In stock' : 'Out of stock'}
                 </div>
-                <div className="item-price">₺{camera.Price.toFixed(2)}</div>
+                <div className="item-price">₺{item.Price.toFixed(2)}</div>
               </div>
+
+              <input
+              type="number"
+              min="1"
+              defaultValue="1"
+              onChange={(e) => item.quantityToPurchase = parseInt(e.target.value, 10)}
+              className="quantity-input"
+            />
+            <button
+              onClick={() => addToCart(item, item.quantityToPurchase)}
+              className="add-to-cart-button"
+            >
+              Add to Cart
+            </button>
+
             </div>
           ))}
         </div>

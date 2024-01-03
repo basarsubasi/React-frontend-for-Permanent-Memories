@@ -1,9 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../Styles/Films.css'; // Assuming similar styling as SearchItems
+import '../Styles/Cameras.css'; // Assuming similar styling as SearchItems
 
-const FilmsPage = () => {
+
+const addToCart = (item, quantityToPurchase) => {
+
+  if (!item.IsAvailable) {
+    alert('This item is out of stock');
+    return;
+  }
+  if (item.Quantity < quantityToPurchase) {
+    alert('There is not enough stock to purchase this quantity');
+    return;
+  }
+  let cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+  // Find the index of the item in the cart
+  const existingItemIndex = cart.findIndex(cartItem => cartItem.GUID === item.GUID);
+
+  // Parse the quantity to purchase as an integer, default to 1 if undefined
+  const quantity = parseInt(quantityToPurchase, 10) || 1;
+
+  if (existingItemIndex !== -1) {
+    // If the item exists, update the quantity to purchase
+    cart[existingItemIndex].quantityToPurchase += quantity;
+  } else {
+    // If the item doesn't exist, add the new item with the quantity to purchase
+    cart.push({ ...item, quantityToPurchase: quantity });
+  }
+
+  // Save the updated cart back to session storage
+  sessionStorage.setItem('cart', JSON.stringify(cart));
+};
+
+const CamerasPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [filter, setFilter] = useState({
     title: '',
@@ -11,13 +41,14 @@ const FilmsPage = () => {
     maxPrice: '',
     isAvailable: '',
     brand: '',
-    sortOrder: 'ascending',
+    sortOrder: 'descending',
   });
   const navigate = useNavigate();
 
   useEffect(() => {
     handleSearch();
   }, []);
+  
 
   const handleSearch = async () => {
     try {
@@ -34,7 +65,7 @@ const FilmsPage = () => {
       });
       setSearchResults(response.data);
     } catch (error) {
-      console.error('Error fetching films:', error);
+      console.error('Error fetching cameras:', error);
     }
   };
 
@@ -47,15 +78,44 @@ const FilmsPage = () => {
     handleSearch();
   };
 
-  const navigateToProduct = (guid) => {
-    navigate(`/product/${guid}`);
+  const navigateToProduct = (GUID) => {
+    navigate(`/product/${GUID}`);
+  };
+
+  const addToCart = (item, quantityToPurchase) => {
+
+    if (!item.IsAvailable) {
+      alert('This item is out of stock');
+      return;
+    }
+    if (item.Quantity < quantityToPurchase) {
+      alert('There is not enough stock to purchase this quantity');
+      return;
+    }
+    let cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    // Find the index of the item in the cart
+    const existingItemIndex = cart.findIndex(cartItem => cartItem.GUID === item.GUID);
+  
+    // Parse the quantity to purchase as an integer, default to 1 if undefined
+    const quantity = parseInt(quantityToPurchase, 10) || 1;
+  
+    if (existingItemIndex !== -1) {
+      // If the item exists, update the quantity to purchase
+      cart[existingItemIndex].quantityToPurchase += quantity;
+    } else {
+      // If the item doesn't exist, add the new item with the quantity to purchase
+      cart.push({ ...item, quantityToPurchase: quantity });
+    }
+  
+    // Save the updated cart back to session storage
+    sessionStorage.setItem('cart', JSON.stringify(cart));
   };
 
   return (
-    <div className="film-items-container">
-      <h2 className="film-items-title">Films</h2>
+    <div className="camera-items-container">
+      <h2 className="camera-items-title">Cameras</h2>
 
-      <form onSubmit={handleSubmit} className="film-filter-form">
+      <form onSubmit={handleSubmit} className="camera-filter-form">
         <input
           type="text"
           name="title"
@@ -100,28 +160,43 @@ const FilmsPage = () => {
           <option value="descending">Descending</option>
         </select>
 
-        <button type="film-filter-form">Apply Filters</button>
+        <button type="camera-filter-form">Apply Filters</button>
       </form>
 
       {searchResults.length === 0 ? (
         <div className="no-results-message">
-          No films found matching the filters.
+          No cameras found matching the filters.
         </div>
       ) : (
-        <div className="film-results-grid">
-          {searchResults.map((film) => (
-            <div className="film-item-card" key={film.GUID}>
-              <img src={film.TitleImageUrl} alt={film.Title} className="item-image" />
+        <div className="camera-results-grid">
+          {searchResults.map((item) => (
+            <div className="camera-item-card" key={item.GUID}>
+              <img src={item.TitleImageUrl} alt={item.Title} className="item-image" />
               <div className="item-content">
-                <h3 className="item-title" onClick={() => navigateToProduct(film.GUID)}>
-                  {film.Title}
+                <h3 className="item-title" onClick={() => navigateToProduct(item.GUID)}>
+                  {item.Title}
                 </h3>
-                <div className="item-description">{film.Description}</div>
-                <div className={`item-availability ${!film.IsAvailable ? 'out-of-stock' : ''}`}>
-                  {film.IsAvailable ? 'In stock' : 'Out of stock'}
+                <div className="item-description">{item.Description}</div>
+                <div className={`item-availability ${!item.IsAvailable ? 'out-of-stock' : ''}`}>
+                  {item.IsAvailable ? 'In stock' : 'Out of stock'}
                 </div>
-                <div className="item-price">₺{film.Price.toFixed(2)}</div>
+                <div className="item-price">₺{item.Price.toFixed(2)}</div>
               </div>
+
+              <input
+              type="number"
+              min="1"
+              defaultValue="1"
+              onChange={(e) => item.quantityToPurchase = parseInt(e.target.value, 10)}
+              className="quantity-input"
+            />
+            <button
+              onClick={() => addToCart(item, item.quantityToPurchase)}
+              className="add-to-cart-button"
+            >
+              Add to Cart
+            </button>
+
             </div>
           ))}
         </div>
@@ -130,4 +205,4 @@ const FilmsPage = () => {
   );
 };
 
-export default FilmsPage;
+export default CamerasPage;
