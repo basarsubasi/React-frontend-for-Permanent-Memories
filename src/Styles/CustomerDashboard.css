@@ -1,0 +1,42 @@
+/* CustomerDashboard.css */
+
+.customer-dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* This will make the dashboard take up the full viewport height */
+    background-color: #ecf0f1; /* Light grey background */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  .customer-dashboard h1 {
+    color: #2c3e50; /* Dark blue color for headings */
+    margin-bottom: 20px;
+  }
+  
+  .my-orders-button {
+    padding: 10px 20px;
+    background-color: #f0c14b; /* Bright blue background for the button */
+    color: #131921; /* White text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px; /* Slightly larger font size for better readability */
+    font-weight: 600; /* Semi-bold font weight */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    text-transform: uppercase; /* UPPERCASE text for a more button-like appearance */
+    letter-spacing: 1px; /* Spacing out letters for better aesthetics */
+    outline: none; /* Removing the outline to keep the design clean */
+  }
+  
+  .my-orders-button:hover,
+  .my-orders-button:focus {
+    background-color: #cca134; /* Darker blue for the button when hovered/focused */
+    outline: none; /* Ensure no outline on focus for a clean design */
+  }
+  
+  .my-orders-button:active {
+    transform: translateY(2px); /* Slight push effect when the button is clicked */
+  }
+  

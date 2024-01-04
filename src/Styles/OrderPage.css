@@ -1,0 +1,81 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f4f4f4;
+    color: #333;
+  }
+  
+  .order-page {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+  
+  .order-header {
+    border-bottom: 2px solid #005f73;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .order-header h2 {
+    color: #005f73;
+  }
+  
+  .order-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+  }
+  
+  .order-item:last-child {
+    border-bottom: none;
+  }
+  
+  .order-item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .order-item-details {
+    flex-grow: 1;
+  }
+  
+  .order-item-details h3 {
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  .order-summary {
+    text-align: right;
+  }
+  
+  .order-summary .total-price {
+    font-size: 1.5em;
+    color: #bf616a;
+  }
+  
+/* Define classes for each order status */
+.status-pending,
+.status-processing,
+.status-shipped {
+  color: #f0c14b; /* Yellow color for pending, processing, and shipped */
+  font-weight: bold;
+}
+
+.status-delivered {
+  color: green; /* Green color for delivered */
+  font-weight: bold;
+}
+
+.status-cancelled {
+  color: red; /* Red color for cancelled */
+  font-weight: bold;
+}

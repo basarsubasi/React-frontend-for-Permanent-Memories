@@ -118,7 +118,7 @@ const ItemsListPage = () => {
         <select name="brand" value={filter.brand} onChange={handleFilterChange}>
           <option value="">Select Brand</option>
           <option value="Kodak">Kodak</option>
-          <option value="Agfa">Agfa</option>
+          <option value="Agfa">AgfaPhoto</option>
           <option value="Canon">Canon</option>
           <option value="Ilford">Ilford</option>
           {/* Add more brands as needed */}
@@ -140,7 +140,6 @@ const ItemsListPage = () => {
               <h3 className="item-title" onClick={() => navigateToProduct(item.GUID)}>
                 {item.Title}
               </h3>
-              <div className="item-description">{item.Description}</div>
               <div className={`item-availability ${!item.IsAvailable ? 'out-of-stock' : ''}`}>
                 {item.IsAvailable ? 'In stock' : 'Out of stock'}
               </div>

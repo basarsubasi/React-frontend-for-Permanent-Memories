@@ -102,9 +102,8 @@ const ShoppingCart = () => {
   const placeOrder = async () => {
     // Assuming you have a way to get the current user's ID and name
     const user = JSON.parse(sessionStorage.getItem('user'));
-    const isLoggedIn = !!user;
     const userName = user.UserName; //
-    const UserGUID = user.GUID; //
+    const UserGUID = user.UserId; //
     if (!user) { console.error('User not found'); return; }
 
     try {

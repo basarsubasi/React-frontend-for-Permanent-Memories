@@ -13,7 +13,10 @@ import AdminDashboard from './Pages/AdminDashboard';
 import RegisterEmployee from './Pages/RegisterEmployee';
 import ItemsListPage from './Pages/ListAllItems';
 import ListUsersPage from './Pages/ListUsers';
+import CustomerDashboard from './Pages/CustomerDashboard';
 import ShoppingCart from './Pages/ShoppingCart';
+import OrderPage from './Pages/OrderPage';
+import MyOrders from './Pages/MyOrders';
 import Layout from './Components/Layout';
 
 function App() {
@@ -35,7 +38,11 @@ function App() {
   <Route path="/registeremployee" element={<RegisterEmployee />} />
   <Route path="/listallitems" element={<ItemsListPage />} />
   <Route path="/listusers" element={<ListUsersPage />} />
+  <Route path="/customerdashboard" element={<CustomerDashboard />} />
   <Route path="/shoppingcart" element={<ShoppingCart />} />
+  <Route path="/orderpage/:OrderId" element={<OrderPage />} />
+  <Route path="/myorders/:UserId" element={<MyOrders />} />
+  
   {/* Add more routes for other pages */}
 </Routes>
      </Layout>

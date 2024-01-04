@@ -1,0 +1,80 @@
+.my-orders {
+    font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; /* A more modern font stack */
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.my-orders h1 {
+    color: #2c3e50; /* A deeper color for better contrast */
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px; /* Slightly larger to stand out */
+}
+
+.order {
+    padding: 15px;
+    border-bottom: 2px solid #f0f0f0; /* Lighter border for a softer look */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Added box-shadow to transition */
+}
+
+.order:last-child {
+    border-bottom: none;
+}
+
+.order:hover {
+    background-color: #f7f7f7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow on hover for depth */
+}
+
+.order div {
+    font-size: 16px;
+    color: #34495e; /* A darker gray for better readability */
+    line-height: 1.6;
+    margin-bottom: 10px; /* Increased margin for better separation */
+}
+
+.order div span {
+    font-weight: 600; /* Semi-bold for better emphasis */
+    color: #2c3e50;
+}
+
+/* Custom colors for the status, with added text-shadow for depth */
+.status-pending {
+    color: #f39c12; /* A more vibrant shade of gold */
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.status-processing {
+    color: #16a085; /* A more vibrant shade of aqua */
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.status-shipped {
+    color: #2980b9; /* A more vibrant shade of blue */
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.status-delivered {
+    color: #27ae60; /* A more vibrant shade of green */
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.status-cancelled {
+    color: #e74c3c; /* A more vibrant shade of red */
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+.details-button {
+    padding: 10px 15px;
+    background-color: #f0c14b; /* Change this to your preferred button color */
+    border: none;
+    border-radius: 4px;
+    color: black; /* Text color */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}

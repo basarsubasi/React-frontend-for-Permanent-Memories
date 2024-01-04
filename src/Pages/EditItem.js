@@ -153,6 +153,18 @@ const EditItem = ({ match }) => {
             onChange={handleInputChange}
           />
         </div>
+
+        <div className="form-group">
+          <label>Quantity:</label>
+          <input
+            type="number"
+            name="Quantity"
+            value={itemDetails.Quantity}
+            onChange={handleInputChange}
+            step="1"
+            required
+          />
+        </div>
         
         <div className="form-group">
           <label>Price:</label>
