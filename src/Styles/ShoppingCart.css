@@ -101,5 +101,10 @@
     .cart-total {
       font-size: 1.2rem;
     }
+
+    .cart-item-title:hover { cursor: pointer;
+      text-decoration: underline; /* Indicate clickable title */
+      
+    }
   }
   

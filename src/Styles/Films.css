@@ -124,7 +124,7 @@
   margin-top: 20px;
 }
 
-.item-title:hover {
+.camera-title:hover {
   cursor: pointer;
   text-decoration: underline; /* Indicate clickable title */
 }
