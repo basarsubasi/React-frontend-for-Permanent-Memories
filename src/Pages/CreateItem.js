@@ -23,7 +23,6 @@ const CreateItem = () => {
   const [cameraDetails, setCameraDetails] = useState({
     CameraFocalLength: 35,
     CameraMaxShutterSpeed: 100,
-    CameraMegapixel: 24,
     CameraFilmFormat: 35,
   });
 
@@ -144,6 +143,18 @@ const CreateItem = () => {
           />
         </div>
         <div className="form-group">
+          <label>Quantity:</label>
+          <input
+            type="number"
+            name="Quantity"
+            value={itemDetails.Quantity}
+            onChange={handleInputChange}
+            step="1"
+            required
+          />
+        </div>
+        
+        <div className="form-group">
           <label>Price:</label>
           <input
             type="number"
@@ -256,16 +267,7 @@ const CreateItem = () => {
                 required
               />
             </div>
-            <div className="form-group">
-              <label>Megapixel:</label>
-              <input
-                type="number"
-                name="CameraMegapixel"
-                value={cameraDetails.CameraMegapixel}
-                onChange={handleCameraInputChange}
-                required
-              />
-            </div>
+            
             <div className="form-group">
               <label>Accepted Film Format:</label>
               <input

@@ -28,7 +28,6 @@ const EditItem = ({ match }) => {
   const [cameraDetails, setCameraDetails] = useState({
     CameraFocalLength: 35,
     CameraMaxShutterSpeed: 100,
-    CameraMegapixel: 24,
     CameraFilmFormat: 35,
   });
 
@@ -259,15 +258,7 @@ const EditItem = ({ match }) => {
                 onChange={handleCameraInputChange}
               />
             </div>
-            <div className="form-group">
-              <label>Megapixel:</label>
-              <input
-                type="number"
-                name="CameraMegapixel"
-                value={cameraDetails.CameraMegapixel}
-                onChange={handleCameraInputChange}
-              />
-            </div>
+           
             <div className="form-group">
               <label>Accepted Film Format:</label>
               <input

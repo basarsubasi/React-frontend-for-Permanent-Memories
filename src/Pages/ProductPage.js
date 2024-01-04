@@ -43,7 +43,6 @@ const ProductPage = () => {
           <div className="product-camera-specs">
             <p>Focal Length: {product.CameraFocalLength} mm</p>
             <p>Max Shutter Speed: 1/{product.CameraMaxShutterSpeed} sec</p>
-            <p>Megapixel: {product.CameraMegapixel} MP</p>
             <p>Film Format: {product.CameraFilmFormat}</p>
           </div>
         );
@@ -114,7 +113,7 @@ const ProductPage = () => {
 
       
 
-      <button className="add-to-cart-btn">Add to Cart - £{product.Price}</button>
+      <button className="add-to-cart-btn">Add to Cart - ₺{product.Price}</button>
     </div>
   );
 };
