@@ -12,6 +12,7 @@ import EditItem from './Pages/EditItem';
 import AdminDashboard from './Pages/AdminDashboard';
 import RegisterEmployee from './Pages/RegisterEmployee';
 import ItemsListPage from './Pages/ListAllItems';
+import OrdersListPage from './Pages/ListAllOrders';
 import ListUsersPage from './Pages/ListUsers';
 import CustomerDashboard from './Pages/CustomerDashboard';
 import ShoppingCart from './Pages/ShoppingCart';
@@ -37,6 +38,7 @@ function App() {
   <Route path="/admindashboard" element={<AdminDashboard />} />
   <Route path="/registeremployee" element={<RegisterEmployee />} />
   <Route path="/listallitems" element={<ItemsListPage />} />
+  <Route path="/listallorders" element={<OrdersListPage />} />
   <Route path="/listusers" element={<ListUsersPage />} />
   <Route path="/customerdashboard" element={<CustomerDashboard />} />
   <Route path="/shoppingcart" element={<ShoppingCart />} />
