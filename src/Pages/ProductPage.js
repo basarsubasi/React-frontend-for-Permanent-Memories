@@ -7,6 +7,8 @@ const ProductPage = () => {
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(''); // This will be used to hold the currently selected image
   const { guid } = useParams();
+  const [quantityToPurchase, setQuantityToPurchase] = useState(1); // State to track the quantity to purchase
+
 
   // Fetch product details
   useEffect(() => {
@@ -35,6 +37,28 @@ const ProductPage = () => {
     return <div className="loading">Loading...</div>; // Style this for better UX
   }
 
+ 
+  // Function to add an item to the cart
+  const addToCart = () => {
+    if (!product || !product.IsAvailable || product.Quantity < quantityToPurchase) {
+      alert('This item is not available in the desired quantity.');
+      return;
+    }
+
+    let cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    const existingItemIndex = cart.findIndex(cartItem => cartItem.GUID === product.GUID);
+
+    if (existingItemIndex !== -1) {
+      cart[existingItemIndex].quantityToPurchase += quantityToPurchase;
+    } else {
+      cart.push({ ...product, quantityToPurchase });
+    }
+
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+    alert('Item added to cart!');
+  };
+
+
   // Extracted function for rendering additional details
   const renderAdditionalDetails = () => {
     switch (product.ItemType) {
@@ -62,6 +86,7 @@ const ProductPage = () => {
     }
   };
 
+  
 
 
  
@@ -113,7 +138,25 @@ const ProductPage = () => {
 
       
 
-      <button className="add-to-cart-btn">Add to Cart - ₺{product.Price}</button>
+      {product.IsAvailable && (
+          <>
+            <div className="product-quantity-selection">
+              <label htmlFor="quantity">Quantity: </label>
+              <input
+                id="quantity"
+                type="number"
+                min="1"
+                max={product.Quantity}
+                value={quantityToPurchase}
+                onChange={(e) => setQuantityToPurchase(Math.max(1, parseInt(e.target.value, 10)))}
+                className="quantity-input"
+              />
+            </div>
+            <button onClick={addToCart} className="add-to-cart-btn">
+              Add to Cart - ₺{product.Price}
+            </button>
+          </>
+        )}
     </div>
   );
 };

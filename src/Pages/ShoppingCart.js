@@ -102,6 +102,7 @@ const ShoppingCart = () => {
   const placeOrder = async () => {
     // Assuming you have a way to get the current user's ID and name
     const user = JSON.parse(sessionStorage.getItem('user'));
+    const isLoggedIn = !!user;
     const userName = user.UserName; // Replace with actual logic to retrieve user name
 
     try {
