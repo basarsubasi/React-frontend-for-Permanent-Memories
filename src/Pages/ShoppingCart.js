@@ -98,6 +98,46 @@ const ShoppingCart = () => {
     navigate(`/product/${GUID}`);
   };
 
+  // New function to place the order
+  const placeOrder = async () => {
+    // Assuming you have a way to get the current user's ID and name
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    const userName = user.UserName; // Replace with actual logic to retrieve user name
+
+    try {
+      const order = {
+
+        UserName: userName,
+        TotalPrice: calculateTotal(),
+        Status: 0, // Assuming you want to set this status when placing the order
+        Items: cartItems.map(({ GUID, Title, TitleImageUrl, quantityToPurchase, Price }) => ({
+          OriginalItemGUID: GUID,
+          Title,
+          TitleImageUrl,
+          QuantityToPurchase: quantityToPurchase,
+          Price
+        }))
+      };
+
+      const response = await axios.post('http://localhost:5232/api/order/createOrder', order, {withCredentials: true});
+      if (response.status === 200) {
+        // Handle successful order placement here
+        alert(`Order placed! Your order ID is: ${response.data.OrderId}`);
+        // Clear the cart after placing the order
+        setCartItems([]);
+        sessionStorage.removeItem('cart');
+        // Maybe navigate to a confirmation page or order summary page
+        // navigate('/order-confirmation');
+      } else {
+        // Handle other statuses
+        alert('Failed to place the order. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error placing order:', error);
+      alert('An error occurred while placing the order. Please check your connection and try again.');
+    }
+  };
+
   return (
     <div className="shopping-cart-container">
       {cartItems.length === 0 ? (
@@ -120,12 +160,16 @@ const ShoppingCart = () => {
                 max={item.Quantity}
               />
               <button onClick={() => deleteItem(item.GUID)}>Remove</button>
+             
             </div>
           ))}
 
           <div className="cart-total">
             <strong>Total: ₺{calculateTotal().toFixed(2)}</strong>
           </div>
+          <button onClick={placeOrder} className="place-order-button">
+                Place Order
+             </button>
         </div>
       )}
     </div>
