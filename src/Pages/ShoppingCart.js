@@ -103,12 +103,15 @@ const ShoppingCart = () => {
     // Assuming you have a way to get the current user's ID and name
     const user = JSON.parse(sessionStorage.getItem('user'));
     const isLoggedIn = !!user;
-    const userName = user.UserName; // Replace with actual logic to retrieve user name
+    const userName = user.UserName; //
+    const UserGUID = user.GUID; //
+    if (!user) { console.error('User not found'); return; }
 
     try {
       const order = {
 
         UserName: userName,
+        UserGUID: UserGUID,
         TotalPrice: calculateTotal(),
         Status: 0, // Assuming you want to set this status when placing the order
         Items: cartItems.map(({ GUID, Title, TitleImageUrl, quantityToPurchase, Price }) => ({
