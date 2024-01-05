@@ -52,6 +52,13 @@ const OrdersListPage = () => {
       }
     }
   };
+  const statusOptions = {
+    "Pending": 0,
+    "Processing": 1,
+    "Shipped": 2,
+    "Delivered": 3,
+    "Cancelled": 4
+  };
 
 
   const handleFilterChange = (event) => {
@@ -65,22 +72,34 @@ const OrdersListPage = () => {
 
   const handleUpdateOrderStatus = async (OrderId) => {
     try {
-      const newStatus = selectedStatus[OrderId]; // Get the selected status for this order
-      if (!newStatus) {
-        alert("Please select a status before updating.");
+      const newStatusText = selectedStatus[OrderId];
+      const newStatusNumber = statusOptions[newStatusText]; // Get the numeric value
+  
+      if (newStatusNumber === undefined) {
+        alert("Please select a valid status before updating.");
         return;
       }
-
-      const response = await axios.put(`http://localhost:5232/api/Order/updateOrderStatus/${OrderId}`, { newStatus }, { withCredentials: true });
+  
+      const response = await axios.put(
+        `http://localhost:5232/api/Order/updateOrderStatus/${OrderId}`,
+        newStatusNumber, // Send just the numeric value
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        }
+      );
+  
       if (response.status === 200) {
-        alert(`Order status updated to ${newStatus}.`);
-        // Optionally, refresh the list or update the status in the UI
-        handleSearch();
+        alert(`Order status updated to ${newStatusText}.`);
+        handleSearch(); // Refresh the orders list
       }
     } catch (error) {
       console.error('Error updating order status:', error);
     }
   };
+  
 
   const handleStatusSelect = (OrderId, status) => {
     setSelectedStatus({
@@ -168,6 +187,15 @@ const OrdersListPage = () => {
               <p>Status: {order.Status}</p>
             </div>
             <div className="order-actions">
+            <select
+                value={selectedStatus[order.OrderId] || order.Status}
+                onChange={(e) => handleStatusSelect(order.OrderId, e.target.value)}
+              >
+                {Object.keys(statusOptions).map((status) => (
+                  <option key={status} value={status}>{status}</option>
+                ))}
+              </select>
+
               <button className="update-status-button" onClick={() => handleUpdateOrderStatus(order.OrderId)}>
                 Update Status
               </button>
