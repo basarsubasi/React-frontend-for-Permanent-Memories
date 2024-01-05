@@ -39,6 +39,10 @@ const ItemsListPage = () => {
     }
   };
 
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const userRoles = user?.Roles || []; // Default to an empty array if Roles is not present
+  const isAdmin = userRoles.includes('Admin');
+
   const handleFilterChange = (event) => {
     setFilter({ ...filter, [event.target.name]: event.target.value });
   };
@@ -148,9 +152,11 @@ const ItemsListPage = () => {
                 <button className="edit-button" onClick={() => handleEditItem(item.GUID)}>
                 Edit Item
                </button>
+               {isAdmin && (
                <button className="delete-button" onClick={() => handleDeleteItem(item.GUID)}>
              Delete
                </button>
+                )}
                </div>
             </div>
           </div>

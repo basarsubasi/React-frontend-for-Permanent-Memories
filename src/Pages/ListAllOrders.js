@@ -12,12 +12,23 @@ const OrdersListPage = () => {
     orderDate: '',
     sortOrder: 'ascending',
   });
+
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const userRoles = user?.Roles || []; // Default to an empty array if Roles is not present
+  const isAdmin = userRoles.includes('Admin');
+
   const navigate = useNavigate();
+
+ 
   const [selectedStatus, setSelectedStatus] = useState({});
 
   useEffect(() => {
     handleSearch();
   }, []);
+
+  const navigateToOrder = (OrderId) => {
+    navigate(`/orderpage/${OrderId}`);
+  };
 
   const handleSearch = async () => {
     try {
@@ -84,9 +95,6 @@ const OrdersListPage = () => {
         `http://localhost:5232/api/Order/updateOrderStatus/${OrderId}`,
         newStatusNumber, // Send just the numeric value
         {
-          headers: {
-            'Content-Type': 'application/json'
-          },
           withCredentials: true
         }
       );
@@ -179,7 +187,7 @@ const OrdersListPage = () => {
         {orders.map((order) => (
           <div className="order-card" key={order.OrderId}>
             {/* Display order details */}
-            <div className="order-details">
+            <div className="order-details" onClick={() => navigateToOrder(order.OrderId)}>
               <p>Order ID: {order.OrderId}</p>
               <p>User: {order.UserName}</p>
               <p>Date: {new Date(order.DatePlaced).toLocaleDateString()}</p>
@@ -199,9 +207,11 @@ const OrdersListPage = () => {
               <button className="update-status-button" onClick={() => handleUpdateOrderStatus(order.OrderId)}>
                 Update Status
               </button>
-              <button className="delete-button" onClick={() => handleDeleteOrder(order.OrderId)}>
-                Delete
-              </button>
+              {isAdmin && (
+                <button className="delete-button" onClick={() => handleDeleteOrder(order.OrderId)}>
+                  Delete
+                </button>
+              )}
             </div>
           </div>
         ))}
