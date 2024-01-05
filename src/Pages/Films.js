@@ -157,7 +157,6 @@ const CamerasPage = () => {
         <select name="isAvailable" value={filter.isAvailable} onChange={handleFilterChange}>
           <option value="">Any Availability</option>
           <option value="true">In Stock</option>
-          
         </select>
 
         <select name="brand" value={filter.brand} onChange={handleFilterChange}>

@@ -57,6 +57,11 @@ const EditItem = ({ match }) => {
           });
         } else if (data.ItemType === 1) {
           setItemType('Camera');
+          setCameraDetails({
+            CameraFocalLength: data.CameraFocalLength,
+            CameraMaxShutterSpeed: data.CameraMaxShutterSpeed,
+            CameraFilmFormat: data.CameraFilmFormat,
+          });
           // Set cameraDetails here similarly if you have camera-specific properties
         }
       } catch (error) {
@@ -152,6 +157,7 @@ const EditItem = ({ match }) => {
             <option value="">Select Brand</option>
             <option value="Kodak">Kodak</option>
             <option value="Ilford">Ilford</option>
+            <option value="Fujifilm">Fujifilm</option>
             <option value="AgfaPhoto">AgfaPhoto</option>
             <option value="Olympus">Olympus</option>
           </select>
@@ -287,6 +293,7 @@ const EditItem = ({ match }) => {
                 <option value="0">0mm</option>
                 <option value="35">35mm</option>
                 <option value="50">50mm</option>
+                <option value="90">90mm</option>
                 {/* Add more focal length options as needed */}
               </select>
             </div>
@@ -300,6 +307,7 @@ const EditItem = ({ match }) => {
                 required
               >
                 <option value="100">1/100</option>
+                <option value="120">1/120</option>
                 <option value="250">1/250</option>
                 <option value="500">1/500</option>
                 <option value="1000">1/1000</option>
