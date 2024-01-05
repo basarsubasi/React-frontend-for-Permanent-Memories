@@ -57,8 +57,6 @@ const CreateItem = () => {
     });
   };
 
-  
-
   const handleFilmInputChange = (e) => {
     const { name, value } = e.target;
     setFilmDetails({
@@ -74,7 +72,6 @@ const CreateItem = () => {
       [name]: parseInt(value, 10) || 0, // Parse as integer, default to 0 if NaN
     });
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,7 +95,6 @@ const CreateItem = () => {
       console.error('Item creation failed:', error);
     }
   };
-
 
   return (
     <div className="create-item-container">
@@ -134,14 +130,20 @@ const CreateItem = () => {
 
         <div className="form-group">
           <label>Brand:</label>
-          <input
-            type="text"
+          <select
             name="Brand"
             value={itemDetails.Brand}
             onChange={handleInputChange}
             required
-          />
+          >
+            <option value="">Select Brand</option>
+            <option value="Kodak">Kodak</option>
+            <option value="Ilford">Ilford</option>
+            <option value="AgfaPhoto">AgfaPhoto</option>
+            <option value="Olympus">Olympus</option>
+          </select>
         </div>
+
         <div className="form-group">
           <label>Quantity:</label>
           <input
@@ -167,7 +169,7 @@ const CreateItem = () => {
         </div>
 
         <div className="form-group">
-          <label>IsAvailable:</label>
+          <label>Is Available:</label>
           <input
             type="checkbox"
             name="IsAvailable"
@@ -175,12 +177,11 @@ const CreateItem = () => {
             onChange={(e) => {
               setItemDetails({ ...itemDetails, IsAvailable: e.target.checked });
             }}
-            
           />
         </div>
 
         <div className="form-group">
-          <label>Title Image Url:</label>
+          <label>Title Image URL:</label>
           <input
             type="text"
             name="TitleImageUrl"
@@ -204,82 +205,115 @@ const CreateItem = () => {
         {itemType === 'Film' && (
           <>
             <div className="form-group">
-              <label>Film Color State:</label>
-              <input
-                type="number"
+              <label>Color State:</label>
+              <select
                 name="FilmColorState"
                 value={filmDetails.FilmColorState}
                 onChange={handleFilmInputChange}
                 required
-              />
+              >
+                <option value="">Select Color State</option>
+                <option value="0">Black and White</option>
+                <option value="1">Color</option>
+              </select>
             </div>
+
             <div className="form-group">
               <label>Format:</label>
-              <input
-                type="number"
+              <select
                 name="FilmFormat"
                 value={filmDetails.FilmFormat}
                 onChange={handleFilmInputChange}
                 required
-              />
+              >
+                <option value="35">35mm</option>
+                <option value="120">120mm</option>
+                {/* Add more film format options as needed */}
+              </select>
             </div>
+
             <div className="form-group">
               <label>ISO:</label>
-              <input
-                type="number"
+              <select
                 name="FilmISO"
                 value={filmDetails.FilmISO}
                 onChange={handleFilmInputChange}
                 required
-              />
+              >
+                <option value="100">ISO 100</option>
+                <option value="200">ISO 200</option>
+                <option value="400">ISO 400</option>
+                <option value="800">ISO 800</option>
+                {/* Add more ISO options as needed */}
+              </select>
             </div>
+
             <div className="form-group">
               <label>Exposure:</label>
-              <input
-                type="number"
+              <select
                 name="FilmExposure"
                 value={filmDetails.FilmExposure}
                 onChange={handleFilmInputChange}
                 required
-              />
+              >
+                <option value="24">24</option>
+                <option value="36">36</option>
+                {/* Add more exposure options as needed */}
+              </select>
             </div>
           </>
         )}
+
         {itemType === 'Camera' && (
           <>
             <div className="form-group">
               <label>Focal Length:</label>
-              <input
-                type="number"
+              <select
                 name="CameraFocalLength"
                 value={cameraDetails.CameraFocalLength}
                 onChange={handleCameraInputChange}
                 required
-              />
+              >
+                <option value="0">0mm</option>
+                <option value="35">35mm</option>
+                <option value="50">50mm</option>
+                {/* Add more focal length options as needed */}
+              </select>
             </div>
+
             <div className="form-group">
               <label>Max Shutter Speed:</label>
-              <input
-                type="number"
+              <select
                 name="CameraMaxShutterSpeed"
                 value={cameraDetails.CameraMaxShutterSpeed}
                 onChange={handleCameraInputChange}
                 required
-              />
+              >
+                <option value="100">1/100</option>
+                <option value="250">1/250</option>
+                <option value="500">1/500</option>
+                <option value="1000">1/1000</option>
+                <option value="2000">1/2000</option>
+                {/* Add more max shutter speed options as needed */}
+              </select>
             </div>
-            
+
             <div className="form-group">
               <label>Accepted Film Format:</label>
-              <input
-                type="number"
+              <select
                 name="CameraFilmFormat"
                 value={cameraDetails.CameraFilmFormat}
                 onChange={handleCameraInputChange}
                 required
-              />
+              >
+                <option value="35">35mm</option>
+                <option value="120">120mm</option>
+                {/* Add more film format options as needed */}
+              </select>
             </div>
           </>
         )}
+
         <button type="submit">Create Item</button>
       </form>
     </div>

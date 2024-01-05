@@ -9,6 +9,10 @@ const ProductPage = () => {
   const { guid } = useParams();
   const [quantityToPurchase, setQuantityToPurchase] = useState(1); // State to track the quantity to purchase
 
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const userRoles = user?.Roles || []; // Default to an empty array if Roles is not present
+  const isCustomer = userRoles.includes('Customer');
+
 
   // Fetch product details
   useEffect(() => {
@@ -96,9 +100,10 @@ const ProductPage = () => {
   return (
     <div className="product-page">
       <h1 className="product-title">{product.Title}</h1>
-      <p className="product-description" >Product Description:</p>
-      <p className="product-description">{product.Description}</p>
-
+      <p className="product-description-title">Product Description:</p>
+      <div className="product-description-section">
+  <p className="product-description">{product.Description}</p>
+      </div>
 
 
       <div className="product-image-gallery">
@@ -138,7 +143,7 @@ const ProductPage = () => {
 
       
 
-      {product.IsAvailable && (
+      {product.IsAvailable && isCustomer && (
           <>
             <div className="product-quantity-selection">
               <label htmlFor="quantity">Quantity: </label>

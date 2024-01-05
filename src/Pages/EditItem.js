@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'; // Import useParams
+import { useParams } from 'react-router-dom';
 import '../Styles/EditItem.css';
 
 const EditItem = ({ match }) => {
- const { guid } = useParams(); // Use useParams to get the guid
-  const [itemType, setItemType] = useState('Film'); // Initialize this based on your logic
+  const { guid } = useParams();
+  const [itemType, setItemType] = useState('Film');
   const [itemDetails, setItemDetails] = useState({
     Title: '',
     Description: '',
@@ -15,7 +15,6 @@ const EditItem = ({ match }) => {
     IsAvailable: false,
     TitleImageUrl: '',
     AdditionalImageUrls: [],
-
   });
 
   const [filmDetails, setFilmDetails] = useState({
@@ -33,41 +32,38 @@ const EditItem = ({ match }) => {
 
   useEffect(() => {
     const fetchItem = async () => {
-        try {
-          const response = await axios.get(`http://localhost:5232/api/Item/getItem/${guid}`);
-          const data = response.data;
-      
-          // Set common item details
-          setItemDetails({
-            Title: data.Title,
-            Description: data.Description,
-            Quantity: data.Quantity,
-            Price: data.Price,
-            Brand: data.Brand,
-            IsAvailable: data.IsAvailable,
-            TitleImageUrl: data.TitleImageUrl,
-            AdditionalImageUrls: data.AdditionalImageUrls,
+      try {
+        const response = await axios.get(`http://localhost:5232/api/Item/getItem/${guid}`);
+        const data = response.data;
+
+        setItemDetails({
+          Title: data.Title,
+          Description: data.Description,
+          Quantity: data.Quantity,
+          Price: data.Price,
+          Brand: data.Brand,
+          IsAvailable: data.IsAvailable,
+          TitleImageUrl: data.TitleImageUrl,
+          AdditionalImageUrls: data.AdditionalImageUrls,
+        });
+
+        if (data.ItemType === 0) {
+          setItemType('Film');
+          setFilmDetails({
+            FilmColorState: data.FilmColorState,
+            FilmFormat: data.FilmFormat,
+            FilmISO: data.FilmISO,
+            FilmExposure: data.FilmExposure,
           });
-      
-          // Check the ItemType and set details accordingly
-          if (data.ItemType === 0) { // Assuming 0 is for Film
-            setItemType('Film');
-            setFilmDetails({
-              FilmColorState: data.FilmColorState,
-              FilmFormat: data.FilmFormat,
-              FilmISO: data.FilmISO,
-              FilmExposure: data.FilmExposure,
-            });
-          } else if (data.ItemType === 1) { // Assuming 1 is for Camera
-            setItemType('Camera');
-            // Set cameraDetails here similarly if you have camera-specific properties
-          }
-      
-        } catch (error) {
-          console.error('Error fetching item:', error);
+        } else if (data.ItemType === 1) {
+          setItemType('Camera');
+          // Set cameraDetails here similarly if you have camera-specific properties
         }
-      };
-      
+      } catch (error) {
+        console.error('Error fetching item:', error);
+      }
+    };
+
     fetchItem();
   }, [guid]);
 
@@ -89,18 +85,18 @@ const EditItem = ({ match }) => {
     const { name, value } = e.target;
     setFilmDetails({
       ...filmDetails,
-      [name]: parseInt(value, 10) // Parse as integer
+      [name]: parseInt(value, 10),
     });
   };
-  
 
   const handleCameraInputChange = (e) => {
     const { name, value } = e.target;
     setCameraDetails({
       ...cameraDetails,
-      [name]: parseInt(value, 10) // Parse as integer
+      [name]: parseInt(value, 10),
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -112,9 +108,9 @@ const EditItem = ({ match }) => {
       };
 
       await axios.put(`http://localhost:5232/api/Item/editItem/${guid}`, editItemDTO, {
-        withCredentials: true // Include this to send cookies with the request
+        withCredentials: true,
       });
-  
+
       alert('Item updated successfully!');
     } catch (error) {
       console.error('Error updating item:', error);
@@ -144,14 +140,21 @@ const EditItem = ({ match }) => {
             onChange={handleInputChange}
           />
         </div>
+
         <div className="form-group">
           <label>Brand:</label>
-          <input
-            type="text"
+          <select
             name="Brand"
             value={itemDetails.Brand}
             onChange={handleInputChange}
-          />
+            required
+          >
+            <option value="">Select Brand</option>
+            <option value="Kodak">Kodak</option>
+            <option value="Ilford">Ilford</option>
+            <option value="AgfaPhoto">AgfaPhoto</option>
+            <option value="Olympus">Olympus</option>
+          </select>
         </div>
 
         <div className="form-group">
@@ -165,7 +168,7 @@ const EditItem = ({ match }) => {
             required
           />
         </div>
-        
+
         <div className="form-group">
           <label>Price:</label>
           <input
@@ -206,87 +209,125 @@ const EditItem = ({ match }) => {
             onChange={handleAdditionalImageUrlsChange}
           />
         </div>
-  
+
         {/* Film Specific Details */}
         {itemType === 'Film' && (
           <>
             <div className="form-group">
-              <label>Film Color State:</label>
-              <input
-                type="number"
+              <label>Color State:</label>
+              <select
                 name="FilmColorState"
                 value={filmDetails.FilmColorState}
                 onChange={handleFilmInputChange}
-              />
+                required
+              >
+                <option value="">Select Color State</option>
+                <option value="0">Black and White</option>
+                <option value="1">Color</option>
+              </select>
             </div>
+
             <div className="form-group">
               <label>Format:</label>
-              <input
-                type="number"
+              <select
                 name="FilmFormat"
                 value={filmDetails.FilmFormat}
                 onChange={handleFilmInputChange}
-              />
+                required
+              >
+                <option value="35">35mm</option>
+                <option value="120">120mm</option>
+                {/* Add more film format options as needed */}
+              </select>
             </div>
+
             <div className="form-group">
               <label>ISO:</label>
-              <input
-                type="number"
+              <select
                 name="FilmISO"
                 value={filmDetails.FilmISO}
                 onChange={handleFilmInputChange}
-              />
+                required
+              >
+                <option value="100">ISO 100</option>
+                <option value="200">ISO 200</option>
+                <option value="400">ISO 400</option>
+                <option value="800">ISO 800</option>
+                {/* Add more ISO options as needed */}
+              </select>
             </div>
+
             <div className="form-group">
               <label>Exposure:</label>
-              <input
-                type="number"
+              <select
                 name="FilmExposure"
                 value={filmDetails.FilmExposure}
                 onChange={handleFilmInputChange}
-              />
+                required
+              >
+                <option value="24">24</option>
+                <option value="36">36</option>
+                {/* Add more exposure options as needed */}
+              </select>
             </div>
           </>
         )}
-  
+
         {/* Camera Specific Details */}
         {itemType === 'Camera' && (
           <>
             <div className="form-group">
               <label>Focal Length:</label>
-              <input
-                type="number"
+              <select
                 name="CameraFocalLength"
                 value={cameraDetails.CameraFocalLength}
                 onChange={handleCameraInputChange}
-              />
+                required
+              >
+                <option value="0">0mm</option>
+                <option value="35">35mm</option>
+                <option value="50">50mm</option>
+                {/* Add more focal length options as needed */}
+              </select>
             </div>
+
             <div className="form-group">
               <label>Max Shutter Speed:</label>
-              <input
-                type="number"
+              <select
                 name="CameraMaxShutterSpeed"
                 value={cameraDetails.CameraMaxShutterSpeed}
                 onChange={handleCameraInputChange}
-              />
+                required
+              >
+                <option value="100">1/100</option>
+                <option value="250">1/250</option>
+                <option value="500">1/500</option>
+                <option value="1000">1/1000</option>
+                <option value="2000">1/2000</option>
+                {/* Add more max shutter speed options as needed */}
+              </select>
             </div>
-           
+
             <div className="form-group">
               <label>Accepted Film Format:</label>
-              <input
-                type="number"
+              <select
                 name="CameraFilmFormat"
                 value={cameraDetails.CameraFilmFormat}
                 onChange={handleCameraInputChange}
-              />
+                required
+              >
+                <option value="35">35mm</option>
+                <option value="120">120mm</option>
+                {/* Add more film format options as needed */}
+              </select>
             </div>
           </>
         )}
-  
+
         <button type="submit">Save Changes</button>
       </form>
     </div>
   );
-}
-export default EditItem;
+};
 
+export default EditItem;
