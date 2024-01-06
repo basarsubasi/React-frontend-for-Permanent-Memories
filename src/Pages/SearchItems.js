@@ -13,7 +13,7 @@ const SearchItems = () => {
     brand: '',
     sortOrder: 'ascending',
   });
-  const [availableBrands] = useState(['Kodak', 'AgfaPhoto', 'Canon', 'Ilford']); // Replace with your brands list
+  const [availableBrands] = useState(['Kodak', 'AgfaPhoto', 'Canon', 'Ilford', "Fujifilm"]); // Replace with your brands list
   const location = useLocation();
   const navigate = useNavigate(); 
 

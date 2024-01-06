@@ -6,7 +6,7 @@
     align-items: center;
     margin: 20px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    color: #333;
+    color: black;
   }
   
   .loading {
@@ -89,7 +89,7 @@
   
   .product-details p {
     margin: 5px 0;
-    color: #333;
+    color: black;
   }
   
   /* Specific item details styling */
@@ -105,7 +105,7 @@
   .product-camera-specs p,
   .product-film-specs p {
     margin: 5px 0;
-    color: #333;
+    color: black;
     font-weight: bold;
   }
   

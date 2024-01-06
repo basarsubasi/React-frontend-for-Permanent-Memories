@@ -18,6 +18,7 @@ import ListUsersPage from './Pages/ListUsers';
 import CustomerDashboard from './Pages/CustomerDashboard';
 import ShoppingCart from './Pages/ShoppingCart';
 import OrderPage from './Pages/OrderPage';
+import OrderConfirmation from './Pages/OrderConfirmation';
 import MyOrders from './Pages/MyOrders';
 import Layout from './Components/Layout';
 
@@ -45,9 +46,10 @@ function App() {
   <Route path="/customerdashboard" element={<CustomerDashboard />} />
   <Route path="/shoppingcart" element={<ShoppingCart />} />
   <Route path="/orderpage/:OrderId" element={<OrderPage />} />
+  <Route path="/orderconfirmation/:OrderId" element={<OrderConfirmation />} />
   <Route path="/myorders/:UserId" element={<MyOrders />} />
   
-  {/* Add more routes for other pages */}
+  
 </Routes>
      </Layout>
     </Router>

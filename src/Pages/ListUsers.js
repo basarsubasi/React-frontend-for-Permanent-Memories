@@ -50,7 +50,7 @@ const ListUsersPage = () => {
         value={selectedRole}
         onChange={(e) => setSelectedRole(e.target.value)}
       >
-        <option value="">All Roles</option>
+        <option value="">Select Role</option>
         <option value="employee">Employee</option>
         <option value="customer">Customer</option>
       </select>

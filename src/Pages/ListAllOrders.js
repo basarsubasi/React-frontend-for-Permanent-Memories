@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
 import '../Styles/OrdersList.css'; // Import your CSS file
 
 const OrdersListPage = () => {
@@ -20,7 +21,7 @@ const OrdersListPage = () => {
   const navigate = useNavigate();
 
  
-  const [selectedStatus, setSelectedStatus] = useState({});
+
 
   useEffect(() => {
     handleSearch();
@@ -63,6 +64,9 @@ const OrdersListPage = () => {
       }
     }
   };
+
+  const [selectedStatus, setSelectedStatus] = useState({});
+
   const statusOptions = {
     "Pending": 0,
     "Processing": 1,
@@ -95,6 +99,9 @@ const OrdersListPage = () => {
         `http://localhost:5232/api/Order/updateOrderStatus/${OrderId}`,
         newStatusNumber, // Send just the numeric value
         {
+          headers: {
+            'Content-Type': 'application/json', // Set the content type to JSON
+          },
           withCredentials: true
         }
       );
@@ -110,6 +117,12 @@ const OrdersListPage = () => {
   
 
   const handleStatusSelect = (OrderId, status) => {
+    if (status) {
+      setSelectedStatus((prevStatuses) => ({
+        ...prevStatuses,
+        [OrderId]: status
+      }));
+    }
     setSelectedStatus({
       ...selectedStatus,
       [OrderId]: status
@@ -132,25 +145,24 @@ const OrdersListPage = () => {
   return (
     <div className="orders-list-container">
       <h2 className="orders-list-title">List All Orders</h2>
-
+  
       <form onSubmit={handleSubmit} className="orders-list-filter-form">
-
-      <input
+        <input
           type="text"
           name="OrderId"
           placeholder="Search by OrderId"
           value={filter.OrderId}
           onChange={handleFilterChange}
         />
-
+  
         <input
           type="text"
           name="userName"
-          placeholder="Search by User Name"
+          placeholder="Search by Username"
           value={filter.userName}
           onChange={handleFilterChange}
         />
-
+  
         <input
           type="number"
           name="minPrice"
@@ -158,7 +170,7 @@ const OrdersListPage = () => {
           value={filter.minPrice}
           onChange={handleFilterChange}
         />
-
+  
         <input
           type="number"
           name="maxPrice"
@@ -166,7 +178,7 @@ const OrdersListPage = () => {
           value={filter.maxPrice}
           onChange={handleFilterChange}
         />
-
+  
         <input
           type="date"
           name="orderDate"
@@ -174,15 +186,15 @@ const OrdersListPage = () => {
           value={filter.orderDate}
           onChange={handleFilterChange}
         />
-
+  
         <select name="sortOrder" value={filter.sortOrder} onChange={handleFilterChange}>
           <option value="ascending">Ascending</option>
           <option value="descending">Descending</option>
         </select>
-
+  
         <button type="submit">Apply Filters</button>
       </form>
-
+  
       <div className="orders-list-grid">
         {orders.map((order) => (
           <div className="order-card" key={order.OrderId}>
@@ -196,14 +208,22 @@ const OrdersListPage = () => {
             </div>
             <div className="order-actions">
             <select
-                value={selectedStatus[order.OrderId] || order.Status}
-                onChange={(e) => handleStatusSelect(order.OrderId, e.target.value)}
-              >
-                {Object.keys(statusOptions).map((status) => (
-                  <option key={status} value={status}>{status}</option>
-                ))}
-              </select>
+  value={selectedStatus[order.OrderId] ?? ''}
+  onChange={(e) => handleStatusSelect(order.OrderId, e.target.value)}
+>
+  {/* The placeholder option */}
+  <option value="" disabled>
+    Select Status
+  </option>
 
+  {/* The rest of the options */}
+  {Object.keys(statusOptions).map((status) => (
+    <option key={status} value={status}>
+      {status}
+    </option>
+  ))}
+</select>
+  
               <button className="update-status-button" onClick={() => handleUpdateOrderStatus(order.OrderId)}>
                 Update Status
               </button>
@@ -218,6 +238,8 @@ const OrdersListPage = () => {
       </div>
     </div>
   );
-};
+}
+  
 
 export default OrdersListPage;
+

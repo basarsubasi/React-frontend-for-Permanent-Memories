@@ -126,11 +126,32 @@ const ShoppingCart = () => {
       if (response.status === 200) {
         // Handle successful order placement here
         alert(`Order placed! Your order ID is: ${response.data.OrderId}`);
+
+        // Reduce the stock of the items in the cart
+
+        for (const item of cartItems) {
+          await axios.post(
+            `http://localhost:5232/api/Item/reduceStockAfterPurchase/${item.GUID}`,
+
+            JSON.stringify(item.quantityToPurchase), // Send the integer as JSON
+            {
+              headers: {
+                'Content-Type': 'application/json', // Set the content type
+              }
+            },
+
+            {
+              withCredentials: true, // Enable credentials for this specific request
+            }
+          );
+        }
+
         // Clear the cart after placing the order
         setCartItems([]);
         sessionStorage.removeItem('cart');
-        // Maybe navigate to a confirmation page or order summary page
-        // navigate('/order-confirmation');
+        // navigate to a confirmation page or order summary page
+        navigate(`/orderconfirmation/${response.data.OrderId}`);
+
       } else {
         // Handle other statuses
         alert('Failed to place the order. Please try again.');
@@ -144,7 +165,10 @@ const ShoppingCart = () => {
   return (
     <div className="shopping-cart-container">
       {cartItems.length === 0 ? (
-        <p>Your cart is empty</p>
+        <div className="empty-cart">
+        <h2>Your Cart is Empty</h2>
+        <p>Looks like your cart is currently empty. Start adding items to your cart!</p>
+      </div>
       ) : (
         <div>
           {cartItems.map((item) => (

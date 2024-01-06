@@ -46,7 +46,14 @@ const MyOrders = ({ }) => {
                     params: { UserGUID },
                     withCredentials: true
                 });
-                setOrders(response.data);
+
+            if (response.status === 200) {
+                setOrders(response.data);}
+                
+            else if (response.status === 404) {
+                setOrders([]);
+                alert('No orders found matching the filters.');}
+
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -61,12 +68,14 @@ const MyOrders = ({ }) => {
         return <div>Loading orders...</div>;
     }
 
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
 
     if (orders.length === 0) {
-        return <div>You have no orders.</div>;
+        return (
+            <div className="no-orders">
+              <h2>No Orders Found</h2>
+              <p>Your order history is empty. Start shopping now!</p>
+            </div>
+          );
     }
 
     return (
