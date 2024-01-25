@@ -11,7 +11,7 @@ const SearchItems = () => {
     maxPrice: '',
     isAvailable: '',
     brand: '',
-    sortOrder: 'ascending',
+    sortOrder: 'Sort Order',
   });
   const [availableBrands] = useState(['Kodak', 'AgfaPhoto', 'Canon', 'Ilford', "Fujifilm"]); // Replace with your brands list
   const location = useLocation();
@@ -36,6 +36,8 @@ const SearchItems = () => {
           isAvailable: filter.isAvailable !== '' ? filter.isAvailable : null,
           brand: filter.brand !== '' ? filter.brand : null,
           descending: filter.sortOrder === 'descending',
+          sortBy: filter.sortBy,
+
         },
       });
 
@@ -134,10 +136,21 @@ const SearchItems = () => {
           onChange={handleFilterChange}
         />
 
+<select name="sortBy" value={filter.sortBy} onChange={handleFilterChange}>
+          <option value="">Sort By</option>
+          <option value="title">Title</option>
+          <option value="price">Price</option>
+          <option value="quantity">Quantity</option>
+          {/* Add more sort options as needed */}
+        </select>
+
         <select name="sortOrder" value={filter.sortOrder} onChange={handleFilterChange}>
+          <option value="">Sort Order</option>
           <option value="ascending">Ascending</option>
           <option value="descending">Descending</option>
         </select>
+
+        
 
         <button type="search-filter-form">Apply Filters</button>
       </form>

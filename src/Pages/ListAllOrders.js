@@ -11,7 +11,7 @@ const OrdersListPage = () => {
     minPrice: '',
     maxPrice: '',
     orderDate: '',
-    sortOrder: 'ascending',
+    sortOrder: 'Sort Order',
   });
 
   const user = JSON.parse(sessionStorage.getItem('user'));
@@ -42,6 +42,7 @@ const OrdersListPage = () => {
               maxPrice: filter.maxPrice !== '' ? parseFloat(filter.maxPrice) : null,
               orderDate: filter.orderDate,
               sortOrder: filter.sortOrder,
+              sortBy: filter.sortBy,
             },
           });
 
@@ -186,11 +187,8 @@ const OrdersListPage = () => {
           value={filter.orderDate}
           onChange={handleFilterChange}
         />
-  
-        <select name="sortOrder" value={filter.sortOrder} onChange={handleFilterChange}>
-          <option value="ascending">Ascending</option>
-          <option value="descending">Descending</option>
-        </select>
+
+        
   
         <button type="submit">Apply Filters</button>
       </form>
@@ -203,7 +201,7 @@ const OrdersListPage = () => {
               <p>Order ID: {order.OrderId}</p>
               <p>User: {order.UserName}</p>
               <p>Date: {new Date(order.DatePlaced).toLocaleDateString()}</p>
-              <p>Total Price: ${order.TotalPrice.toFixed(2)}</p>
+              <p>Total Price: ₺{order.TotalPrice.toFixed(2)}</p>
               <p>Status: {order.Status}</p>
             </div>
             <div className="order-actions">

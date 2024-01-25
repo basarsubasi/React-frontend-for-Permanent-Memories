@@ -131,7 +131,7 @@ const ShoppingCart = () => {
 
         for (const item of cartItems) {
           await axios.post(
-            `http://localhost:5232/api/Item/reduceStockAfterPurchase/${item.GUID}`,
+            `http://localhost:5232/api/Item/reduceStockAfterPurchase/${item.GUID}`, 
 
             JSON.stringify(item.quantityToPurchase), // Send the integer as JSON
             {
@@ -139,7 +139,7 @@ const ShoppingCart = () => {
                 'Content-Type': 'application/json', // Set the content type
               }
             },
-
+            
             {
               withCredentials: true, // Enable credentials for this specific request
             }

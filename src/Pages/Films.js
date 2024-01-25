@@ -41,7 +41,7 @@ const CamerasPage = () => {
     maxPrice: '',
     isAvailable: '',
     brand: '',
-    sortOrder: 'descending',
+    sortOrder: 'Sort Order',
   });
   const navigate = useNavigate();
 
@@ -61,6 +61,7 @@ const CamerasPage = () => {
           isAvailable: filter.isAvailable !== '' ? filter.isAvailable === 'true' : null,
           brand: filter.brand,
           descending: filter.sortOrder === 'descending',
+          sortBy: filter.sortBy,
         },
       });
 
@@ -167,7 +168,16 @@ const CamerasPage = () => {
           {/* Add more brands as needed */}
         </select>
 
+        <select name="sortBy" value={filter.sortBy} onChange={handleFilterChange}>
+          <option value="">Sort By</option>
+          <option value="title">Title</option>
+          <option value="price">Price</option>
+          <option value="quantity">Quantity</option>
+          {/* Add more sort options as needed */}
+        </select>
+
         <select name="sortOrder" value={filter.sortOrder} onChange={handleFilterChange}>
+          <option value="">Sort Order</option>
           <option value="ascending">Ascending</option>
           <option value="descending">Descending</option>
         </select>

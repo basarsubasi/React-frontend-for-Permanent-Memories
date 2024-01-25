@@ -12,7 +12,7 @@ const ItemsListPage = () => {
     maxPrice: '',
     isAvailable: '',
     brand: '',
-    sortOrder: 'ascending',
+    sortOrder: 'SortOrder',
   });
   const navigate = useNavigate();
 
@@ -29,6 +29,7 @@ const ItemsListPage = () => {
           minPrice: filter.minPrice !== '' ? parseFloat(filter.minPrice) : null,
           maxPrice: filter.maxPrice !== '' ? parseFloat(filter.maxPrice) : null,
           isAvailable: filter.isAvailable !== '' ? filter.isAvailable === 'true' : null,
+          sortBy: filter.sortBy,
           brand: filter.brand,
           descending: filter.sortOrder === 'descending',
         },
@@ -128,7 +129,16 @@ const ItemsListPage = () => {
           {/* Add more brands as needed */}
         </select>
 
+        <select name="sortBy" value={filter.sortBy} onChange={handleFilterChange}>
+          <option value="">Sort By</option>
+          <option value="title">Title</option>
+          <option value="price">Price</option>
+          <option value="quantity">Quantity</option>
+          {/* Add more sort options as needed */}
+        </select>
+
         <select name="sortOrder" value={filter.sortOrder} onChange={handleFilterChange}>
+          <option value="">Sort Order</option>
           <option value="ascending">Ascending</option>
           <option value="descending">Descending</option>
         </select>
